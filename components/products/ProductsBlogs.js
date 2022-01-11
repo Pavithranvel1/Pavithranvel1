@@ -5,6 +5,9 @@ export default function ProductsBlogs({ data }) {
   return (
     <>
       <div className="container py-10 px-5">
+        <div className="xs:w-full md:w-9/12 ">
+          <hr />
+        </div>
         <div className="float-left my-10">
           <h3>{data?.individualProducts?.blogHeading}</h3>
         </div>
@@ -25,7 +28,7 @@ export default function ProductsBlogs({ data }) {
                 </div>
               ) : (
                 <section>
-                  <div className="flex">
+                  <div className="md:flex">
                     <div className="xs:w-full md:w-3/12 blogImg">
                       <div>
                         <Image
@@ -36,7 +39,7 @@ export default function ProductsBlogs({ data }) {
                         />
                       </div>
                     </div>
-                    <div className="xs:w-full md:w-9/12 blogContent">
+                    <div className="xs:w-full md:w-8/12 blogContent">
                       <div>
                         <h4>{value.title}</h4>
                         <p className="text-kapitus text-lg">

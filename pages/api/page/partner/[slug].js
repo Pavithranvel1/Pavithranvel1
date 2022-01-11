@@ -5,41 +5,42 @@ export default async (req, resp) => {
 
   const QUERY_SINGLE_POST = `
     query SinglePage($id: ID!) {
-      page(idType: URI, id: $id) {
-          PartnerACF {
-            bannerImage {
-                mediaDetails {
-                width
-                height
+        page(idType: URI, id: $id) {
+            PartnerACF {
+                bannerImage {
+                    mediaDetails {
+                    width
+                    height
+                    }
+                    sourceUrl
                 }
-                sourceUrl
-            }
-            mobileBanner {
-              mediaDetails {
-                height
-                width
-              }
-                sourceUrl
-            }
-            bannerTitle
-            bannerDescription
-            bannerButton
-              threeColumn {
-              cardContent
-              cardTitle
-              svgIcon {
-                sourceUrl
-              }
-            }
-            rightPartnershipForYou
-            howItWorks {
-              svgIcon {
-                sourceUrl
-              }
-              title
-            }
-            joinToday
-          }
+                mobileBanner {
+                    mediaDetails {
+                    height
+                    width
+                    }
+                    sourceUrl
+                }
+                bannerTitle
+                bannerDescription
+                bannerButton
+                threeColumn {
+                    cardContent
+                    cardTitle
+                    svgIcon {
+                    sourceUrl
+                    }
+                }
+                rightPartnershipForYou
+                howItWorks {
+                    svgIcon {
+                    sourceUrl
+                    }
+                    title
+                }
+                joinToday
+                
+                }
         }
     }`;
 

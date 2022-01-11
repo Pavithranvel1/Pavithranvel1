@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next start",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "analyze": "cross-env ANALYZE=true next build"
@@ -17,6 +17,8 @@
     "cross-env": "^7.0.3",
     "duplicate-package-checker-webpack-plugin": "^3.0.0",
     "eslint-config-next": "^11.1.2",
+    "hamburger-react": "^2.4.1",
+    "js-base64": "^3.7.2",
     "next": "latest",
     "next-plugin-preact": "^3.0.6",
     "next-purgecss": "^4.0.0",

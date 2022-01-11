@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import ReactHtmlParser from "react-html-parser";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { ContentNav, StaticContent } from "../styles/Home.module.css";
 
@@ -54,6 +54,7 @@ const Content = ({ data }) => {
                   />
                 )}
               </div>
+
               <h2 className="text-3xl font-semibold text-center my-10 uppercase text-kapitus">
                 {ReactHtmlParser(value?.cardTitle)}
               </h2>
@@ -66,6 +67,7 @@ const Content = ({ data }) => {
                     href={`/partner/${value?.cardTitle
                       .toLowerCase()
                       .replace(" ", "-")}`}
+                    passHref
                   >
                     <button>LEARN MORE</button>
                   </Link>
