@@ -71,6 +71,20 @@ div#Requirement {
   font-size: 15px;
   line-height: 25px;
 }
+.blogsLink:hover {
+  color: #007239;
+  text-decoration: underline;
+}
+.blogThumb:hover {
+  opacity: 0.5;
+}
+.productFrm {
+  background: #fff !important;
+}
+.productFrmButton {
+  width: 100% !important;
+  min-width: 100% !important;
+}
 .formBtn button {
   padding: 0px 20px;
   background: #00395d;

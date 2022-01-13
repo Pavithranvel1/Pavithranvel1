@@ -45,7 +45,7 @@ const BlogCategories = () => {
               prefetch={false}
             >
               <div
-                className="mt-2 text-lg text-kapitus cursor-pointer"
+                className="mt-2 text-lg text-kapitus cursor-pointer blogsLink"
                 title={post.name}
               >
                 {post.name}

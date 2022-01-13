@@ -179,7 +179,7 @@ const Commonshortform = ({ refill, credentials }) => {
   };
 
   return (
-    <section className="w-full max-w-4xl mt-2 px-10 m-auto">
+    <section className="w-full max-w-4xl mt-2 px-10 m-auto productFrm">
       <div className="w-full h-30">
         <div className="w-full py-2 bottom-0 inset-x-0 text-xl text-center text-green">
           Get A Free Quote Today
@@ -542,9 +542,9 @@ const Commonshortform = ({ refill, credentials }) => {
             on how to unsubscribe, as well as our privacy practices and
             commitment to protecting your privacy, please review our
           </div>
-          <div className="col-span-2 text-left mb-4">
+          <div className="col-span-2 text-left mb-4 px-10">
             <input
-              className="py-2 px-6 bg-kapitusLiteGreen text-sm text-white  w-full sm:w-36"
+              className="py-2 px-6 bg-kapitusLiteGreen productFrmButton text-sm text-white sm:w-36"
               type="submit"
             />
           </div>

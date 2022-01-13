@@ -212,9 +212,10 @@ export default function InfiniteScrollList() {
                                 blurDataURL={`data:image/svg+xml;base64,${toBase64(
                                   shimmer(700, 475)
                                 )}`}
+                                className="cursor-pointer blogThumb"
                               />
                             )}
-                            <div className="xs:text-center mx-10 md:text-lg text-blue-900 text-left ">
+                            <div className="xs:text-center mx-10 md:text-lg text-blue-900 text-left cursor-pointer blogsLink">
                               {ReactHtmlParser(key.title)}...
                             </div>
                           </div>
