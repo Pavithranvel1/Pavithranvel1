@@ -51,8 +51,8 @@ const Commonshortform = ({ refill, credentials }) => {
     defaultValues: preloadedValues,
     reValidateMode: "onChange",
   });
-  //   const auth = Base64.btoa(`${credentials.user}:${credentials.password}`);
-  //   let config = { headers: { authorization: `${auth}` } };
+  const auth = Base64.btoa(`kapitus:kapitus@2021`);
+  let config = { headers: { authorization: `${auth}` } };
   let requestForm = {};
 
   useEffect(() => {
