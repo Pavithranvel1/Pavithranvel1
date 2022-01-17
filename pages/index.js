@@ -24,9 +24,11 @@ const Footer = dynamic(() => import("../components/Footer"), {
   ssr: false,
 });
 
-export default function Home({ data }) {
-  // const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  // const { data, error } = useSWR("/api/page/home", fetcher);
+export default function Home() {
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const { data, error } = useSWR("/api/page/home", fetcher, {
+    refreshInterval: 10000,
+  });
 
   let { asPath, pathname } = useRouter();
   const router = useRouter();
@@ -54,11 +56,11 @@ export default function Home({ data }) {
     onEnter: ({ unobserve }) => unobserve(), // only run once
     onLeave: ({ observe }) => observe(),
   });
-  // if (error) return <div>failed to load</div>;
-  // if (!data) return <div>loading...</div>;
+  if (error) return <div>failed to load</div>;
+  if (!data) return <div>loading...</div>;
 
   // const BannerData = data?.page?.ThreeColumnStaticPage?.banner;
-  // alert(data);
+  // alert(data?.page?.ThreeColumnStaticPage?.banner?.bannerImage?.sourceUrl);
   return (
     <>
       <Header />
@@ -155,47 +157,39 @@ export default function Home({ data }) {
             <section className="grid gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
               <div className="shadow-md rounded-md overflow-hidden dark:bg-red-100 dark:text-black">
                 <div className="grid place-items-center w-full text-right">
-                  <Link href="/problems-we-solve">
-                    <a>
-                      <Image
-                        src="/The-Kapitus-Difference.svg"
-                        width="100"
-                        height="100"
-                        alt=""
-                        layout="intrinsic"
-                        objectFit="cover"
-                        quality={100}
-                        placeholder="blur"
-                        blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                          shimmer(700, 475)
-                        )}`}
-                      />
-                    </a>
-                  </Link>
+                  <Image
+                    src="/The-Kapitus-Difference.svg"
+                    width="100"
+                    height="100"
+                    alt=""
+                    layout="intrinsic"
+                    objectFit="cover"
+                    quality={100}
+                    placeholder="blur"
+                    blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                      shimmer(700, 475)
+                    )}`}
+                  />
                 </div>
                 <h4 className="font-semibold text-center my-10 uppercase text-kapitus">
-                  <Link href="/problems-we-solve">
-                    <a>THE KAPITUS DIFFERENCE</a>
-                  </Link>
+                  THE KAPITUS DIFFERENCE
                 </h4>
               </div>
               <div className="shadow-md rounded-md overflow-hidden dark:bg-red-100 dark:text-black">
                 <div className="grid place-items-center w-full text-right">
-                  <Link href="/success-stories">
-                    <Image
-                      src="/Success-On-Every-Corner.svg"
-                      width="100"
-                      height="100"
-                      alt=""
-                      layout="intrinsic"
-                      objectFit="cover"
-                      quality={100}
-                      placeholder="blur"
-                      blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                        shimmer(700, 475)
-                      )}`}
-                    />
-                  </Link>
+                  <Image
+                    src="/Success-On-Every-Corner.svg"
+                    width="100"
+                    height="100"
+                    alt=""
+                    layout="intrinsic"
+                    objectFit="cover"
+                    quality={100}
+                    placeholder="blur"
+                    blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                      shimmer(700, 475)
+                    )}`}
+                  />
                 </div>
                 <h4 className="font-semibold text-center my-10 uppercase text-kapitus">
                   <Link href="/success-stories">
@@ -238,17 +232,4 @@ export default function Home({ data }) {
       </Head>
     </>
   );
-}
-
-export async function getStaticProps() {
-  console.log("regenerating enabled");
-  const response = await fetch("https://kap-staging.us//api/page/home");
-  const resData = await response.json();
-
-  return {
-    props: {
-      data: resData,
-    },
-    revalidate: 10,
-  };
 }
