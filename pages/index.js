@@ -23,9 +23,9 @@ const Footer = dynamic(() => import("../components/Footer"), {
   ssr: false,
 });
 
-export default function Home() {
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  const { data, error } = useSWR("/api/page/home", fetcher);
+export default function Home({ data }) {
+  // const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  // const { data, error } = useSWR("/api/page/home", fetcher);
 
   let { asPath, pathname } = useRouter();
   const router = useRouter();
@@ -53,10 +53,10 @@ export default function Home() {
     onEnter: ({ unobserve }) => unobserve(), // only run once
     onLeave: ({ observe }) => observe(),
   });
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
+  // if (error) return <div>failed to load</div>;
+  // if (!data) return <div>loading...</div>;
 
-  const BannerData = data?.page?.ThreeColumnStaticPage?.banner;
+  // const BannerData = data?.page?.ThreeColumnStaticPage?.banner;
 
   return (
     <>
@@ -138,7 +138,7 @@ export default function Home() {
         {inView && (
           <script
             defer
-            lazyOnload
+            lazyonload="true"
             src="https://cdn.trustindex.io/loader.js?09a5ee4135268498715860a5eb"
           ></script>
         )}
@@ -221,10 +221,23 @@ export default function Home() {
       <Head>
         <script
           defer
-          lazyOnload
+          lazyonload="true"
           src="https://cdn.trustindex.io/loader.js?09a5ee4135268498715860a5eb"
         ></script>
       </Head>
     </>
   );
+}
+
+export async function getStaticProps() {
+  console.log("regenerating enabled");
+  const response = await fetch(process.env.WORDPRESS_GRAPHQL_ENDPOINT);
+  const resData = await response.json();
+
+  return {
+    props: {
+      data: resData,
+    },
+    revalidate: 10,
+  };
 }
