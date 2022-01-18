@@ -11,12 +11,14 @@ import ReactHtmlParser from "react-html-parser";
 //import ScrollSpy from "react-ui-scrollspy";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 import React, { useRef, useEffect, useState } from "react";
-import {
-  BrowserView,
-  MobileView,
-  isBrowser,
-  isMobile,
-} from "react-device-detect";
+// import {
+//   BrowserView,
+//   MobileView,
+//   isBrowser,
+//   isMobile,
+// } from "react-device-detect";
+
+import { useMediaQuery } from "react-responsive";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
@@ -41,6 +43,16 @@ export default function AboutUs() {
   const [showHistory, setShowHistory] = useState(false);
   const fixed = useRef();
   // const [showEmp, setShowEmp] = useState(false);
+
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 1224px)",
+  });
+
+  const isBigScreen = useMediaQuery({ query: "(min-width: 1824px)" });
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+  const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
+  const isRetina = useMediaQuery({ query: "(min-resolution: 2dppx)" });
+
   const toBase64 = (str) =>
     typeof window === "undefined"
       ? Buffer.from(str).toString("base64")
@@ -118,14 +130,14 @@ export default function AboutUs() {
   useEffect(() => {
     const handleScrollPos = () => {
       if (window.scrollY <= 795) {
-        fixed.current.style.position = "relative";
-        fixed.current.style.top = "55px";
+        fixed.current ? (fixed.current.style.position = "relative") : "";
+        fixed.current ? (fixed.current.style.top = "55px") : "";
       } else if (window.scrollY > 795 && window.scrollY < 2250) {
-        fixed.current.style.position = "fixed";
-        fixed.current.style.top = "165px";
+        fixed.current ? (fixed.current.style.position = "fixed") : "";
+        fixed.current ? (fixed.current.style.top = "165px") : "";
       } else {
-        fixed.current.style.position = "absolute";
-        fixed.current.style.top = "1489px";
+        fixed.current ? (fixed.current.style.position = "absolute") : "";
+        fixed.current ? (fixed.current.style.top = "1489px") : "";
       }
 
       var current;
@@ -182,95 +194,103 @@ export default function AboutUs() {
     <>
       <Header />
       <AboutBanner data={data?.aboutUs} />
-      <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto">
-        {ReactHtmlParser(data?.aboutUs?.aboutDescription)}
-      </div>
-      <h3 className="p-10 sticky">OUR HISTORY</h3>
-      <BrowserView>
-        <div className="md:flex mx-2 mb-8 relative">
-          <div className="w-1/3 px-2">
-            <div ref={fixed} className="bg-grey-light">
-              {data?.aboutUs?.ourHistoryRow.map((value, key) => (
-                <div
-                  key={key}
-                  className={`ml-10 employeeContent ${
-                    key == 0 ? `active` : `inactive`
-                  }`}
-                  id={`section-${key + 1}`}
-                >
-                  <div className="leftContent active-scroll-spy p-5 w-64">
-                    <div className="text-kapitus py-3">
-                      {value?.noOfEmployees}
-                    </div>
-                    <hr />
-                    <div className="text-kapitus py-3">
-                      {value?.fundedAmount}
-                    </div>
-                    <hr />
-                    <div className="text-kapitus py-3">
-                      {value?.businessFunded}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="w-2/3 px-2">
-            <div className="bg-grey">
-              {data?.aboutUs?.ourHistoryRow.map((value, key) => (
-                <div
-                  key={key}
-                  id={`section_${key + 1}`}
-                  className="md:pt-16 md:pb-8 businessContent flex w-full items-center"
-                >
-                  <div className="text-right w-1/3 pr-20 text-kapitus text-3xl">
-                    {value?.companyYear}
-                  </div>
-                  <div className="float-left w-1/5">
-                    <Image
-                      src={value?.svgIcon?.sourceUrl}
-                      width="80"
-                      alt=""
-                      height="100"
-                    />
-                  </div>
-                  <div className="text-left w-1/2 text-kapitus text-2xl pr-4">
-                    {value?.companyData}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+      <section>
+        {" "}
+        <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto">
+          {ReactHtmlParser(data?.aboutUs?.aboutDescription)}
         </div>
+      </section>
+      {isDesktopOrLaptop && (
+        <>
+          <h3 className="p-10 sticky">OUR HISTORY</h3>
 
-        <div className="xs:w-full px-5 mt-10 mb-10 mx-auto" id="Teams">
-          <SimpleReactLightbox>
-            <SRLWrapper options={options}>
-              {data?.aboutUs?.meetTeam.map((value, key) => (
-                <div key={key} className="text-center">
-                  <div className="m-2 float-left">
-                    <a href={value?.profileImage?.sourceUrl}>
-                      <Image
-                        src={value?.profileImage?.sourceUrl}
-                        width="300"
-                        height="340"
-                        alt=""
-                        srl_gallery_image="true"
-                      />
-                    </a>
-                    <div>
-                      <h4>{value?.name}</h4>
-                      <span>{value?.role}</span>
+          <section className="container">
+            <div className="mx-2 mb-8 relative">
+              <div className="w-1/3 px-2">
+                <div ref={fixed} className="bg-grey-light">
+                  {data?.aboutUs?.ourHistoryRow.map((value, key) => (
+                    <div
+                      key={key}
+                      className={`ml-10 employeeContent ${
+                        key == 0 ? `active` : `inactive`
+                      }`}
+                      id={`section-${key + 1}`}
+                    >
+                      <div className="leftContent active-scroll-spy p-5 w-64">
+                        <div className="text-kapitus py-3">
+                          {value?.noOfEmployees}
+                        </div>
+                        <hr />
+                        <div className="text-kapitus py-3">
+                          {value?.fundedAmount}
+                        </div>
+                        <hr />
+                        <div className="text-kapitus py-3">
+                          {value?.businessFunded}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="w-2/3 px-2">
+                <div className="bg-grey">
+                  {data?.aboutUs?.ourHistoryRow.map((value, key) => (
+                    <div
+                      key={key}
+                      id={`section_${key + 1}`}
+                      className="md:pt-16 md:pb-8 businessContent flex w-full items-center"
+                    >
+                      <div className="text-right w-1/3 pr-20 text-kapitus text-3xl">
+                        {value?.companyYear}
+                      </div>
+                      <div className="float-left w-1/5">
+                        <Image
+                          src={value?.svgIcon?.sourceUrl}
+                          width="80"
+                          alt=""
+                          height="100"
+                        />
+                      </div>
+                      <div className="text-left w-1/2 text-kapitus text-2xl pr-4">
+                        {value?.companyData}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div className="xs:w-full px-5 mt-10 mb-10 mx-auto" id="Teams">
+            <SimpleReactLightbox>
+              <SRLWrapper options={options}>
+                {data?.aboutUs?.meetTeam.map((value, key) => (
+                  <div key={key} className="text-center">
+                    <div className="m-2 float-left">
+                      <a href={value?.profileImage?.sourceUrl}>
+                        <Image
+                          src={value?.profileImage?.sourceUrl}
+                          width="300"
+                          height="340"
+                          alt=""
+                          srl_gallery_image="true"
+                        />
+                      </a>
+                      <div>
+                        <h4>{value?.name}</h4>
+                        <span>{value?.role}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </SRLWrapper>
-          </SimpleReactLightbox>
-        </div>
-      </BrowserView>
+                ))}
+              </SRLWrapper>
+            </SimpleReactLightbox>
+          </div>
+        </>
+      )}
       {/* Mobile View Our History */}
-      <MobileView>
+      {isTabletOrMobile && (
         <section className="xs:w-full px-5 my-10 mx-5 shadow-md">
           <Carousel
             swipeable={true}
@@ -324,9 +344,9 @@ export default function AboutUs() {
             ))}
           </Carousel>
         </section>
-      </MobileView>
+      )}
       {/* Mobile View Teams */}
-      <MobileView>
+      {isTabletOrMobile && (
         <section className="xs:w-full px-5 mt-10 mb-10 mx-auto md:container">
           <Carousel
             swipeable={true}
@@ -375,7 +395,7 @@ export default function AboutUs() {
             ))}
           </Carousel>
         </section>
-      </MobileView>
+      )}
       <section className="xs:w-full md: float-left mx-5 px-5 py-10">
         {ReactHtmlParser(data?.aboutUs?.footeContent)}
       </section>
