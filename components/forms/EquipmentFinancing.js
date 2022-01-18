@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form"
 import { Base64 } from 'js-base64'
 
 const EquipmentFinancing = ( { refill, credentials } ) => {
-
+  console.log(credentials)
   const [entryid, setEntryId] = useState(0)
   const [fund, setFund] = useState("")
   const [phone, setPhone] = useState("")
