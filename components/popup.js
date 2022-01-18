@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { useForm } from "react-hook-form"
 
-function popup(props) {
+function Popup(props) {
 
   const { register, handleSubmit, trigger, formState: { errors } } = useForm();
 
@@ -44,4 +44,4 @@ function popup(props) {
         </div></div></div></form>):'';
 }
 
-export default popup
+export default Popup;
