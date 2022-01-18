@@ -48,7 +48,7 @@ import { invoiceId, equipmentId, formId } from '../../components/variables/data'
   return (
     <AnimatePresence>
       {show && (
-        <div className="bg-gray-100 m-auto w-full">
+        <div className="bg-gray-100 m-auto w-full overflow-y-auto">
         <div className="text-center">
           <div className="py-52 relative h-full md:h-20 bg-cover bg-no-repeat bg-mobileform md:bg-desktopform">
           </div>
