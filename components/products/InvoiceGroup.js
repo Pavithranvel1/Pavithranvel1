@@ -9,15 +9,20 @@ import Link from "next/link";
 const GroupColumn = ({ columnone, columnTwo, data }) => {
   return (
     <>
-      <div className="xs:w-full container px-5 m-10 mx-auto">
+      <div className="xs:w-full container m-10 mx-auto">
         <div className="container">
-          <h3>{data?.invoiceTemplate?.groupColumnTitle}</h3>
+          <section className="xs: w-full md: grid grid-cols-1">
+            <h2 className="text-kapitus font-bold xs: ml-5">
+              {data?.invoiceTemplate?.groupColumnTitle}
+            </h2>
+            <hr className="my-5 p-5" />
+          </section>
         </div>
       </div>
-      <div className="xs:w-full container px-5 m-10 mx-auto">
-        <hr />
-      </div>
-      <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto">
+      {/* <div className="xs:w-full container px-5 m-10 mx-auto">
+        
+      </div> */}
+      <div className="xs:w-full md:container px-5 mt-10 mb-10 mx-auto">
         <div className="container">
           <section className="grid gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
             {columnone?.map((value, key) => (
@@ -33,7 +38,7 @@ const GroupColumn = ({ columnone, columnTwo, data }) => {
                     alt=""
                   />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-center mx-8">
+                <h3 className="mb-2 text-center p-2">
                   {ReactHtmlParser(value?.groupOneTitle)}
                 </h3>
                 <div className="place-items-center">
@@ -44,14 +49,19 @@ const GroupColumn = ({ columnone, columnTwo, data }) => {
           </section>
         </div>
       </div>
-      <div className="xs:w-full container px-5 m-10 mx-auto">
+      <div className="xs:w-full container m-10 mx-auto">
         <div className="container">
-          <h3>{data?.invoiceTemplate?.groupColumnTitleTwo}</h3>
+          <section className="grid grid-cols-1">
+            <h2 className="text-kapitus font-bold xs: ml-5">
+              {data?.invoiceTemplate?.groupColumnTitleTwo}
+            </h2>
+            <hr className="my-5 p-5" />
+          </section>
         </div>
       </div>
-      <div className="xs:w-full container px-5 m-10 mx-auto">
-        <hr />
-      </div>
+      {/*<div className="xs:w-full container px-5 m-10 mx-auto">
+        
+      </div> */}
       <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto">
         <div className="container">
           <section className="grid gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
@@ -68,7 +78,7 @@ const GroupColumn = ({ columnone, columnTwo, data }) => {
                     alt=""
                   />
                 </div>
-                <h3 className="text-3xl font-semibold mb-2 text-center mx-8">
+                <h3 className="mb-2 text-center p-2">
                   {ReactHtmlParser(value?.groupTitle)}
                 </h3>
                 <div className="place-items-center">
