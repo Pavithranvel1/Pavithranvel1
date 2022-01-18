@@ -395,7 +395,7 @@ const Productservices = (props) => {
         snapPoints={[600, 400, 100, 0]}
         initialSnap={0}
         onSnap={(snapIndex) => {
-          //console.log(window.getElementsByClassName("react-modal-sheet-container")[0])
+          console.log(snapIndex)
           setSnapPoint(snapIndex+initial)
           //console.log('> Current snap point index:', initial)
           setInitial(initial + 1)
