@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   FaFacebookSquare,
@@ -10,7 +10,8 @@ import {
   FaTwitterSquare,
   FaYoutube,
 } from "react-icons/fa";
-import { Squash as Hamburger } from "hamburger-react";
+import { HamburgerArrow } from "react-animated-burgers";
+import { useMediaQuery } from "react-responsive";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -18,6 +19,19 @@ const Header = () => {
   const [isMenuVisible, setMenuVisibility] = useState(false);
   const { data, error } = useSWR("/api/page/header", fetcher);
   const [isOpen, setOpen] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+  const toggleButton = useCallback(
+    () => setIsActive((prevState) => !prevState),
+    []
+  );
+
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 1224px)",
+  });
+  const isBigScreen = useMediaQuery({ query: "(min-width: 1824px)" });
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+  const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
+  const isRetina = useMediaQuery({ query: "(min-resolution: 2dppx)" });
 
   if (error) return <div>failed to load</div>;
 
@@ -75,37 +89,50 @@ const Header = () => {
             <span className="tracking-tight">
               <Link href="/" passHref>
                 <a>
-                  <Image
-                    src="/Kapitus_Logo_white.webp"
-                    width={250}
-                    height={85}
-                    layout="intrinsic"
-                    className="cursor-pointer"
-                    alt="Kapitus"
-                  />
+                  {isDesktopOrLaptop && (
+                    <Image
+                      src="/Kapitus_Logo_white.webp"
+                      width={250}
+                      height={85}
+                      layout="intrinsic"
+                      className="cursor-pointer"
+                      alt="Kapitus"
+                    />
+                  )}
+                  {isTabletOrMobile && (
+                    <div className="flex">
+                      <Image
+                        src="/kapitus-bug-3.png"
+                        width={70}
+                        height={70}
+                        layout="intrinsic"
+                        className="cursor-pointer"
+                        alt="Kapitus"
+                      />
+                      <button className="bg-kapitusLiteGreen xs: ml-10">
+                        <span className="kapitusblue"> Apply Now</span>
+                      </button>
+                    </div>
+                  )}
                 </a>
               </Link>
             </span>
           </div>
-          <div className="float-left block lg:hidden">
+          <div className="float-left mb-5 block lg:hidden">
             <button
               onClick={() => setMenuVisibility(!isMenuVisible)}
               className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white"
             >
-              <svg
-                className="fill-current h-3 w-3"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <title>Menu</title>
-                {/* <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /> */}
-                <Hamburger
-                  toggled={isOpen}
-                  toggle={setOpen}
-                  size={35}
-                  color="#FFFFFF"
-                />
-              </svg>
+              <title>Menu</title>
+              {/* <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /> */}
+
+              <HamburgerArrow
+                buttonColor="#00395d"
+                barColor="white"
+                buttonWidth={15}
+                className="humbargerBtn"
+                {...{ isActive, toggleButton }}
+              />
             </button>
           </div>
           <div
