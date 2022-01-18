@@ -11,10 +11,10 @@ const Accordion = ({ title, content, id }) => {
       <div className="accordion-item">
         <div className="accordion-title" onClick={() => setIsActive(!isActive)}>
           <div
-            className="float-left py-5 px-2 clear-both w-full border-gray-300 border-2"
+            className="flex py-2 px-2 clear-both w-full text-kapitus border-gray-300 border-2"
             id={"key" + id}
           >
-            {title}
+            <span className="w-11/12">{title}</span>
             <span className="float-right">{isActive ? "-" : "+"}</span>
           </div>
         </div>

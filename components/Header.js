@@ -103,8 +103,8 @@ const Header = () => {
                     <div className="flex">
                       <Image
                         src="/kapitus-bug-3.png"
-                        width={70}
-                        height={70}
+                        width={50}
+                        height={50}
                         layout="intrinsic"
                         className="cursor-pointer"
                         alt="Kapitus"
@@ -157,7 +157,7 @@ const Header = () => {
                 </span>
               ))}
             </div>
-            <div className="bg-green px-10 py-3 text-kapitus font-semibold">
+            <div className="bg-green px-10 py-3 mb-5 text-kapitus font-semibold">
               <Link href="/fast-application/" passHref>
                 APPLY NOW
               </Link>

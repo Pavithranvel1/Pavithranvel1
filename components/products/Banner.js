@@ -106,7 +106,7 @@ export default function ProductsBanner({ data }) {
                 </div>
               </div>
 
-              <div className="xs:hidden sm:hidden md:block ">
+              <div className="xs: hidden sm: hidden md:block ">
                 <CommonShortForm />
               </div>
             </div>
