@@ -157,64 +157,78 @@ export default function Home() {
             <section className="grid gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
               <div className="shadow-md rounded-md overflow-hidden dark:bg-red-100 dark:text-black">
                 <div className="grid place-items-center w-full text-right">
-                  <Image
-                    src="/The-Kapitus-Difference.svg"
-                    width="100"
-                    height="100"
-                    alt=""
-                    layout="intrinsic"
-                    objectFit="cover"
-                    quality={100}
-                    placeholder="blur"
-                    blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                      shimmer(700, 475)
-                    )}`}
-                  />
+                  <Link href="/kapitus-difference" passHref>
+                    <Image
+                      src="/The-Kapitus-Difference.svg"
+                      width="100"
+                      height="100"
+                      alt=""
+                      layout="intrinsic"
+                      objectFit="cover"
+                      quality={100}
+                      placeholder="blur"
+                      blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                        shimmer(700, 475)
+                      )}`}
+                      className="cursor-pointer"
+                    />
+                  </Link>
                 </div>
-                <h4 className="font-semibold text-center my-10 uppercase text-kapitus">
-                  THE KAPITUS DIFFERENCE
+
+                <h4 className="font-semibold text-center my-10 uppercase text-kapitus cursor-pointer">
+                  <Link href="/kapitus-difference" passHref>
+                    THE KAPITUS DIFFERENCE
+                  </Link>
                 </h4>
               </div>
               <div className="shadow-md rounded-md overflow-hidden dark:bg-red-100 dark:text-black">
                 <div className="grid place-items-center w-full text-right">
-                  <Image
-                    src="/Success-On-Every-Corner.svg"
-                    width="100"
-                    height="100"
-                    alt=""
-                    layout="intrinsic"
-                    objectFit="cover"
-                    quality={100}
-                    placeholder="blur"
-                    blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                      shimmer(700, 475)
-                    )}`}
-                  />
+                  <Link href="/success-stories" passHref>
+                    <Image
+                      src="/Success-On-Every-Corner.svg"
+                      width="100"
+                      height="100"
+                      alt=""
+                      layout="intrinsic"
+                      objectFit="cover"
+                      quality={100}
+                      placeholder="blur"
+                      blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                        shimmer(700, 475)
+                      )}`}
+                      className="cursor-pointer"
+                    />
+                  </Link>
                 </div>
-                <h4 className="font-semibold text-center my-10 uppercase text-kapitus">
-                  <Link href="/success-stories">
+                <h4 className="font-semibold text-center my-10 uppercase text-kapitus cursor-pointer">
+                  <Link href="/success-stories" passHref>
                     <a> SUCCESS ON EVERY CORNER</a>
                   </Link>
                 </h4>
               </div>
               <div className="shadow-md rounded-md overflow-hidden dark:bg-red-100 dark:text-black">
                 <div className="grid place-items-center w-full text-right">
-                  <Image
-                    src="/Lets-Grow-Together.svg"
-                    width="100"
-                    height="100"
-                    alt=""
-                    layout="intrinsic"
-                    objectFit="cover"
-                    quality={100}
-                    placeholder="blur"
-                    blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                      shimmer(700, 475)
-                    )}`}
-                  />
+                  <Link href="/problems-we-solve" passHref>
+                    <Image
+                      src="/Lets-Grow-Together.svg"
+                      width="100"
+                      height="100"
+                      alt=""
+                      layout="intrinsic"
+                      objectFit="cover"
+                      quality={100}
+                      placeholder="blur"
+                      blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                        shimmer(700, 475)
+                      )}`}
+                      className="cursor-pointer"
+                    />
+                  </Link>
                 </div>
-                <h4 className="font-semibold text-center my-10 uppercase text-kapitus">
-                  LETS GROW TOGETHER
+                <h4 className="font-semibold text-center my-10 uppercase text-kapitus cursor-pointer">
+                  <Link href="/problems-we-solve" passHref>
+                    LETS GROW TOGETHER
+                  </Link>
                 </h4>
               </div>
             </section>

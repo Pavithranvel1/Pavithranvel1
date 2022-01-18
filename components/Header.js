@@ -104,7 +104,7 @@ const Header = () => {
                       <Image
                         src="/kapitus-bug-3.png"
                         width={50}
-                        height={50}
+                        height={40}
                         layout="intrinsic"
                         className="cursor-pointer"
                         alt="Kapitus"
