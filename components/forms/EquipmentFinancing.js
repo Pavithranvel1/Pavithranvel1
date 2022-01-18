@@ -149,7 +149,7 @@ const EquipmentFinancing = ( { refill, credentials } ) => {
   }
 
   return (
-      <section className="max-w-4xl px-10 m-auto">
+      <section className="max-w-4xl px-10 pb-14 m-auto">
         <div className="w-full py-2 bottom-0 inset-x-0 text-2xl font-lg text-center text-kapitusLiteGreen">Get A Free Quote Today</div>
       <form name="invoiceform" onSubmit={handleSubmit(onSubmit)} autoComplete="off" >
       <div className="grid grid-cols-2 gap-4">

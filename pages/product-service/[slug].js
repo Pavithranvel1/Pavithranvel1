@@ -391,9 +391,9 @@ const Productservices = (props) => {
     <Sheet
         isOpen={isOpen}
         onClose={close}
-        snapPoints = {[-1, 0.7, 200, 0]}
+        //snapPoints = {[0, 0.7, 200, 0]}
+        snapPoints={[600, 400, 100, 0]}
         initialSnap={0}
-        //onSnap={setSnapPoint}
         onSnap={(snapIndex) => {
           //console.log(window.getElementsByClassName("react-modal-sheet-container")[0])
           setSnapPoint(snapIndex+initial)
