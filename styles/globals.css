@@ -206,8 +206,9 @@ h4 {
   border-bottom: 1px solid #3f51b5;
 }
 .react-modal-sheet-container {
-  position: relative!important;
-  /*border-top-right-radius: 0!important;
+  top:0;
+  /*position: relative!important;
+  border-top-right-radius: 0!important;
   border-top-left-radius: 0!important;
   background-color: #003a5d!important;
   height: 812px!important;*/

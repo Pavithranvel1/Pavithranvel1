@@ -392,7 +392,7 @@ const Productservices = (props) => {
         isOpen={isOpen}
         onClose={close}
         //snapPoints = {[0, 0.7, 200, 0]}
-        snapPoints={[600, 400, 100, 0]}
+        snapPoints={[-50, 0.5, 100, 0]}
         initialSnap={0}
         onSnap={(snapIndex) => {
           console.log(snapIndex)
