@@ -1,8 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useRouter } from "next/router";
-import { useSpring, animated } from 'react-spring';
-import VisibilitySensor from "react-visibility-sensor";
 import { useInView } from 'react-intersection-observer';
 import lottie from "lottie-web";
 import Sheet, { SheetRef } from 'react-modal-sheet';
@@ -79,8 +77,11 @@ const Productservices = (props) => {
   const animation = useAnimation();
   const animation1 = useAnimation();
   /*const productname = Object.keys(router.query).length >=1 ? router.query.slug.replaceAll('-', ' ') : ''*/
+  const productname =  router.query.slug ? router.query.slug.replaceAll('-', ' ') : ''
 
   useEffect(() => {
+    console.log(router.query)
+    console.log(router.query.slug)
     localStorage.removeItem('gfshortform')
   }, [])
 
@@ -322,7 +323,7 @@ const Productservices = (props) => {
       <Box sx={{ bgcolor: 'background.paper' }}>
       <div className="inset-0 pointer-events-auto" style={{opacity: opacity}}>
       <motion.div className="fixed" initial="initial" animate="animate" exit="exit" drag="y" dragConstraints={{ top: 0, bottom:0 }} onDrag={onDrag} variants={textVariants}>
-        <motion.div className="grid fixed z-50 cursor-pointer text-white place-items-center w-full h-12 bg-kapitus text-lg capitalize" onClick={closeModal} initial={{ y: -350, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: .5, ...transition }}}><div className="absolute left-0 pl-6"><FaChevronLeft size="20" /></div>productname
+        <motion.div className="grid fixed z-50 cursor-pointer text-white place-items-center w-full h-12 bg-kapitus text-lg capitalize" onClick={closeModal} initial={{ y: -350, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: .5, ...transition }}}><div className="absolute left-0 pl-6"><FaChevronLeft size="20" /></div>{productname}
         </motion.div>
         <AppBar position="static" className="pt-12 h-56">
         <Tabs
