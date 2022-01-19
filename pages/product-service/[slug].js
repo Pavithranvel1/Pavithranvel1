@@ -183,36 +183,9 @@ const Productservices = (props) => {
       <motion.div className="fixed" initial="initial" animate="animate" exit="exit" drag="y" dragConstraints={{ top: 0, bottom:0 }} onDrag={onDrag} variants={textVariants}>
         <motion.div className="grid fixed z-50 cursor-pointer text-white place-items-center w-full h-12 bg-kapitus text-lg capitalize" onClick={closeModal} initial={{ y: -350, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: .5, ...transition }}}><div className="absolute left-0 pl-6"><FaChevronLeft size="20" /></div>{productname}
         </motion.div>
-        <AppBar position="static" className="pt-12 h-56">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="secondary"
-          textColor="inherit"
-          variant="fullWidth"
-          aria-label="full width tabs example"
-        >
-          <Tab label="REQUIREMENT" className="nav-tab" {...a11yProps(0)} onClick={handleClick} />
-          <Tab label="HOW TO APPLY" className="nav-tab" {...a11yProps(1)} onClick={handleClick} />
-          <Tab label="WHO IS THIS FOR" className="nav-tab" {...a11yProps(2)} onClick={handleClick} />
-        </Tabs>
-        <div className="grid place-items-center bg-white fixed w-full z-20 mt-16">
-          <div key="lottie3" className="float-right w-1/3 xs:w-1/6 md:w-1/6 lottie h-36" ref={lottieimage}></div>
-        </div>
-      </AppBar>
+
  
       <div className="pb-10 overflow-y-auto content" style={{ height: '500px'}}>
-      <SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'} index={value} onChangeIndex={handleChangeIndex}>
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <div><h3 className="text-kapitus font-bold ">Who Should Use A Business Loan?</h3><p className="text-xl mb-5">Qualifying for a business loan through Kapitus is easier than you think! Depending on the amount you are looking to secure, there are minimum criteria that you must meet (perfect credit not required!), including:</p><ul className="py-4 list-disc htitle"><li className="text-lg">YOU MUST HAVE A PERSONAL CREDIT SCORE OF AT LEAST 625.</li><li className="text-lg">YOUR BUSINESS NEEDS TO HAVE BEEN OPERATING FOR AT LEAST TWO YEARS.</li><li className="text-lg">YOU NEED TO HAVE A MINIMUM OF $250,000 IN ANNUAL REVENUE.</li></ul><p className="text-xl">Kapitus financing products vary by state, so business loans may not be available to everyone. Not to worry! We have a product for every business in every state. Please contact a Kapitus Financing Specialist to discuss your particular circumstances.</p></div>
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          <div><h2 className="text-kapitus font-bold">How To Apply?</h2><p className="text-xl">The Kapitus business loan application process is quick and painless! It should only take you about 5-10 minutes to get your full application package submitted. Simply fill out our online form, and provide your three most recent bank statements, and…that’s it, you’re done! Once your package has been submitted, a Kapitus Financing Specialist will be in touch with a decision or, when necessary, to learn more about your business. Once approved, your Financing Specialist will work with you to build out terms and a payment plan that works best for your business.</p><button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">APPLY NOW</button></div>
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          <div className="htitle"><h2 className="text-kapitus font-bold">Who Should Use A Business Loan?</h2><p className="text-xl">Kapitus business loans are available to businesses in almost every industry (though some exclusions do apply) and are useful when unexpected expenses arise. Here are the industries that most frequently use our Business Loans:</p><li className="text-lg">PERSONAL SERVICES</li><li className="text-lg">BUSINESS SERVICES</li><li className="text-lg">GENERAL CONTRACTORS</li><li className="text-lg">RESTAURANTS</li><li className="text-lg">RETAIL</li><li className="text-lg">SPECIALTY TRADES</li></div>
-        </TabPanel>
-      </SwipeableViews>
       <motion.div ref={ref} className="px-7 py-2">
         <span className="text-kapitus font-bold text-3xl">Why Consider A Business Loan?</span>
         <p className="text-xl">Business loans are one of the most versatile forms of business financing available to owners on the market today.  They are available in a large range of sizes, come with an array of payment options and there is no limit on the way you can use the funds for your business. Whether you’re looking to grow, maintain daily operations, or build yourself a cash flow safety net to manage the unexpected, Kapitus can help you build the right loan product for your unique business needs.</p>
