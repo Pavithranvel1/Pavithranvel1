@@ -1,8 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useRouter } from "next/router";
-import { useSpring, animated } from 'react-spring';
-import VisibilitySensor from "react-visibility-sensor";
 import { useInView } from 'react-intersection-observer';
 import lottie from "lottie-web";
 import Sheet, { SheetRef } from 'react-modal-sheet';
@@ -15,7 +13,7 @@ import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-const tabs1 = {requirement: 0, 'how-to-apply': 1, 'who-is-this-for': 2 }
+const tabs1 = {'requirement': 0, 'how-to-apply': 1, 'who-is-this-for': 2 }
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -79,145 +77,6 @@ const Productservices = (props) => {
   const animation = useAnimation();
   const animation1 = useAnimation();
   const productname = Object.keys(router.query).length >=1 ? router.query.slug.replaceAll('-', ' ') : ''
-
-  useEffect(() => {
-    localStorage.removeItem('gfshortform')
-  }, [])
-
-  useEffect(() => {
-    setTimeout(function(){
-
-      if(typeof document.getElementsByClassName("react-modal-sheet-container")[0] == 'undefined'){
-        setOpacity(1)
-        setBack(true)
-        setInitial(0)
-        router.push(window.location.pathname + window.location.search )
-        //router.push(window.location.pathname)
-      }
-    }, 1500)
-    
-    if(typeof document.getElementsByClassName("react-modal-sheet-container")[0] !== 'undefined'){
-      let transform = document.querySelector('.react-modal-sheet-container').style.transform
-      transform = transform.split(" ");
-      if(typeof transform[0] !== 'undefined'){
-        
-        if(transform){
-          transform = transform[0].match(/\(([^)]+)\)/) ? parseInt(transform[0].match(/\(([^)]+)\)/)[1]): ''
-        }
-        else {
-          transform = ''
-        }
-        if(transform < 210){
-          setOpacity(0)
-          setBack(false)
-        }
-        if(transform >= 210 && transform <= 350){
-          setOpacity(0.25)
-          setBack(true)
-        }
-        if(transform > 350 && transform <= 900){
-          setOpacity(0.45)
-          setBack(true)
-        }
-      }
-    }
-  }, [snapPoint]);
-
-   useEffect(() => {
-    const route = router.query
-    if(typeof route.tab !== 'undefined'){
-      setValue(tabs1[route.tab])
-    }
-
-    if(inView){
-      animation.start({
-        x:0,
-        transition:{
-          type:'spring', delay: 0.5, duration: 0.9, bounce: 0.3
-        }
-      });
-    }
-    if(!inView) {
-      animation.start({ x: '-100vw' });
-    }
-
-    if(inView1) {
-
-      animation1.start({
-        x:0,
-        transition:{
-          type: 'spring', delay: 0.5, duration: 0.9, bounce: 0.3
-        }
-      });
-
-    }
-    if(!inView1){
-      animation1.start({x:'-100vw'});
-    }
-
-    var animDuration = 10000;
-    const anim = lottie.loadAnimation({
-      container: lottieRef.current,
-      renderer: "svg",
-      loop: false,
-      autoplay: false,
-      type: 'seek',
-      animationData: require('../../components/lottie-image/parachute.json')
-    });
-
-    const anim1 = lottie.loadAnimation({
-      container: lottieRef1.current,
-      renderer: "svg",
-      loop: false,
-      autoplay: false,
-      initialSegment: [25, 200],
-      animationData: require('../../components/lottie-image/ball.json')
-    });
-
-    const anim2 = lottie.loadAnimation({
-      container: lottieRef2.current,
-      renderer: "svg",
-      loop: false,
-      autoplay: false,
-      type: 'seek',
-      initialSegment: [25, 200],
-      animationData: require('../../components/lottie-image/dede.json')
-    });
-
-    const animatebodymovin = (duration, scrollY) => {
-      const scrollPosition = scrollY;
-      const maxFrames = anim.totalFrames;
-      const maxFrames1 = anim1.totalFrames;
-      const maxFrames2 = anim2.totalFrames;
-      const frame = (maxFrames / 100) * (scrollPosition / (duration / 100));
-      const frame1 = (maxFrames1 / 100) * ((scrollPosition * 0.7) / (duration / 100));
-      const frame2 = (maxFrames2 / 100) * (scrollPosition / (duration / 100));
-      
-      anim.goToAndStop(frame, true);
-      anim1.goToAndStop(frame1, true);
-      anim2.goToAndStop(frame2, true);
-    }
-
-    const onScroll = (scrollY) => {
-      animatebodymovin(animDuration, scrollY);
-    };
-    
-    if(typeof document.getElementsByClassName("content")[0] !== 'undefined'){
-      document.getElementsByClassName("content")[0].onscroll = function(){
-        onScroll(this.scrollTop);
-      }
-    }
-    return () => {
-      anim.destroy();
-      anim1.destroy();
-      anim2.destroy();
-      if(typeof document.getElementsByClassName("content")[0] !== 'undefined'){
-        document.getElementsByClassName("content")[0].onscroll = function(){
-          onScroll(this.scrollTop);
-        }
-      }
-    }
-  }, [router, inView, inView1, animation, animation1]);
 
   const a11yProps = (index) => {
     return {
@@ -402,15 +261,15 @@ const Productservices = (props) => {
         }
         }
       >
-        <Sheet.Container>
-          <Sheet.Content>
-          <motion.div className="grid fixed z-50 cursor-pointer text-white place-items-center w-full h-12 bg-kapitus text-lg capitalize" initial={{ y: -350, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: .3, ...transition }}} exit={{ y: -350, opacity: 0, transition: { delay: 0.5, duration: 0.5 }}}>
-          <div className="absolute left-0 pl-6" onClick={closeSheet}><FaChevronLeft size="20" /></div>
-          Get A Free Quote Today
-          </motion.div>
-            <Shortform entry_id={props.entry_id || ''} credentials={props.credentials} product={router.query.slug} />
-          </Sheet.Content>
-        </Sheet.Container>
+      <Sheet.Container>
+        <Sheet.Content>
+        <motion.div className="grid fixed z-50 cursor-pointer text-white place-items-center w-full h-12 bg-kapitus text-lg capitalize" initial={{ y: -350, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: .3, ...transition }}} exit={{ y: -350, opacity: 0, transition: { delay: 0.5, duration: 0.5 }}}>
+        <div className="absolute left-0 pl-6" onClick={closeSheet}><FaChevronLeft size="20" /></div>
+        Get A Free Quote Today
+        </motion.div>
+          <Shortform entry_id={props.entry_id || ''} credentials={props.credentials} product={router.query.slug} />
+        </Sheet.Content>
+      </Sheet.Container>
       </Sheet>
     </>
   )
