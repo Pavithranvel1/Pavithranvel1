@@ -78,8 +78,7 @@ const Productservices = (props) => {
   const animation = useAnimation();
   const animation1 = useAnimation();
 
-  let productname = slug ? slug : slug
-  const productname = productname ? productname.replaceAll('-', ' ') : ''
+  const productname = slug ? slug.replaceAll('-', ' ') : ''
 
   useEffect(() => {
     localStorage.removeItem('gfshortform')
