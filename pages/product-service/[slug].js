@@ -317,7 +317,7 @@ const Productservices = (props) => {
   return (
     <>
     <AnimatePresence>
-    {back && (
+    {(back && props.productname) && (
       <Box sx={{ bgcolor: 'background.paper' }}>
       <div className="inset-0 pointer-events-auto" style={{opacity: opacity}}>
       <motion.div className="fixed" initial="initial" animate="animate" exit="exit" drag="y" dragConstraints={{ top: 0, bottom:0 }} onDrag={onDrag} variants={textVariants}>
