@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useRouter } from "next/router";
+import { useSpring, animated } from 'react-spring';
+import VisibilitySensor from "react-visibility-sensor";
 import { useInView } from 'react-intersection-observer';
 import lottie from "lottie-web";
 import Sheet, { SheetRef } from 'react-modal-sheet';
@@ -14,6 +16,32 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 const tabs1 = {'requirement': 0, 'how-to-apply': 1, 'who-is-this-for': 2 }
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          {children}
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
 
 const Productservices = (props) => {
 
@@ -50,7 +78,146 @@ const Productservices = (props) => {
   const [ref1, inView1 ] = useInView();
   const animation = useAnimation();
   const animation1 = useAnimation();
-  //const productname = Object.keys(router.query).length >=1 ? router.query.slug.replaceAll('-', ' ') : ''
+  /*const productname = Object.keys(router.query).length >=1 ? router.query.slug.replaceAll('-', ' ') : ''*/
+
+  useEffect(() => {
+    localStorage.removeItem('gfshortform')
+  }, [])
+
+  useEffect(() => {
+    setTimeout(function(){
+
+      if(typeof document.getElementsByClassName("react-modal-sheet-container")[0] == 'undefined'){
+        setOpacity(1)
+        setBack(true)
+        setInitial(0)
+        router.push(window.location.pathname + window.location.search )
+        //router.push(window.location.pathname)
+      }
+    }, 1500)
+    
+    if(typeof document.getElementsByClassName("react-modal-sheet-container")[0] !== 'undefined'){
+      let transform = document.querySelector('.react-modal-sheet-container').style.transform
+      transform = transform.split(" ");
+      if(typeof transform[0] !== 'undefined'){
+        
+        if(transform){
+          transform = transform[0].match(/\(([^)]+)\)/) ? parseInt(transform[0].match(/\(([^)]+)\)/)[1]): ''
+        }
+        else {
+          transform = ''
+        }
+        if(transform < 210){
+          setOpacity(0)
+          setBack(false)
+        }
+        if(transform >= 210 && transform <= 350){
+          setOpacity(0.25)
+          setBack(true)
+        }
+        if(transform > 350 && transform <= 900){
+          setOpacity(0.45)
+          setBack(true)
+        }
+      }
+    }
+  }, [snapPoint]);
+
+   useEffect(() => {
+    const route = router.query
+    if(typeof route.tab !== 'undefined'){
+      setValue(tabs1[route.tab])
+    }
+
+    if(inView){
+      animation.start({
+        x:0,
+        transition:{
+          type:'spring', delay: 0.5, duration: 0.9, bounce: 0.3
+        }
+      });
+    }
+    if(!inView) {
+      animation.start({ x: '-100vw' });
+    }
+
+    if(inView1) {
+
+      animation1.start({
+        x:0,
+        transition:{
+          type: 'spring', delay: 0.5, duration: 0.9, bounce: 0.3
+        }
+      });
+
+    }
+    if(!inView1){
+      animation1.start({x:'-100vw'});
+    }
+
+    var animDuration = 10000;
+    const anim = lottie.loadAnimation({
+      container: lottieRef.current,
+      renderer: "svg",
+      loop: false,
+      autoplay: false,
+      type: 'seek',
+      animationData: require('../../components/lottie-image/parachute.json')
+    });
+
+    const anim1 = lottie.loadAnimation({
+      container: lottieRef1.current,
+      renderer: "svg",
+      loop: false,
+      autoplay: false,
+      initialSegment: [25, 200],
+      animationData: require('../../components/lottie-image/ball.json')
+    });
+
+    const anim2 = lottie.loadAnimation({
+      container: lottieRef2.current,
+      renderer: "svg",
+      loop: false,
+      autoplay: false,
+      type: 'seek',
+      initialSegment: [25, 200],
+      animationData: require('../../components/lottie-image/dede.json')
+    });
+
+    const animatebodymovin = (duration, scrollY) => {
+      const scrollPosition = scrollY;
+      const maxFrames = anim.totalFrames;
+      const maxFrames1 = anim1.totalFrames;
+      const maxFrames2 = anim2.totalFrames;
+      const frame = (maxFrames / 100) * (scrollPosition / (duration / 100));
+      const frame1 = (maxFrames1 / 100) * ((scrollPosition * 0.7) / (duration / 100));
+      const frame2 = (maxFrames2 / 100) * (scrollPosition / (duration / 100));
+      
+      anim.goToAndStop(frame, true);
+      anim1.goToAndStop(frame1, true);
+      anim2.goToAndStop(frame2, true);
+    }
+
+    const onScroll = (scrollY) => {
+      animatebodymovin(animDuration, scrollY);
+    };
+    
+    if(typeof document.getElementsByClassName("content")[0] !== 'undefined'){
+      document.getElementsByClassName("content")[0].onscroll = function(){
+        onScroll(this.scrollTop);
+      }
+    }
+    return () => {
+      anim.destroy();
+      anim1.destroy();
+      anim2.destroy();
+      if(typeof document.getElementsByClassName("content")[0] !== 'undefined'){
+        document.getElementsByClassName("content")[0].onscroll = function(){
+          onScroll(this.scrollTop);
+        }
+      }
+    }
+  }, [router, inView, inView1, animation, animation1]);
 
   const a11yProps = (index) => {
     return {
@@ -152,13 +319,41 @@ const Productservices = (props) => {
     <>
     <AnimatePresence>
     {back && (
+      <Box sx={{ bgcolor: 'background.paper' }}>
       <div className="inset-0 pointer-events-auto" style={{opacity: opacity}}>
       <motion.div className="fixed" initial="initial" animate="animate" exit="exit" drag="y" dragConstraints={{ top: 0, bottom:0 }} onDrag={onDrag} variants={textVariants}>
-        <motion.div className="grid fixed z-50 cursor-pointer text-white place-items-center w-full h-12 bg-kapitus text-lg capitalize" onClick={closeModal} initial={{ y: -350, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: .5, ...transition }}}><div className="absolute left-0 pl-6"><FaChevronLeft size="20" /></div>sadg
+        <motion.div className="grid fixed z-50 cursor-pointer text-white place-items-center w-full h-12 bg-kapitus text-lg capitalize" onClick={closeModal} initial={{ y: -350, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: .5, ...transition }}}><div className="absolute left-0 pl-6"><FaChevronLeft size="20" /></div>productname
         </motion.div>
-
+        <AppBar position="static" className="pt-12 h-56">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="secondary"
+          textColor="inherit"
+          variant="fullWidth"
+          aria-label="full width tabs example"
+        >
+          <Tab label="REQUIREMENT" className="nav-tab" {...a11yProps(0)} onClick={handleClick} />
+          <Tab label="HOW TO APPLY" className="nav-tab" {...a11yProps(1)} onClick={handleClick} />
+          <Tab label="WHO IS THIS FOR" className="nav-tab" {...a11yProps(2)} onClick={handleClick} />
+        </Tabs>
+        <div className="grid place-items-center bg-white fixed w-full z-20 mt-16">
+          <div key="lottie3" className="float-right w-1/3 xs:w-1/6 md:w-1/6 lottie h-36" ref={lottieimage}></div>
+        </div>
+      </AppBar>
  
       <div className="pb-10 overflow-y-auto content" style={{ height: '500px'}}>
+      <SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'} index={value} onChangeIndex={handleChangeIndex}>
+        <TabPanel value={value} index={0} dir={theme.direction}>
+          <div><h3 className="text-kapitus font-bold ">Who Should Use A Business Loan?</h3><p className="text-xl mb-5">Qualifying for a business loan through Kapitus is easier than you think! Depending on the amount you are looking to secure, there are minimum criteria that you must meet (perfect credit not required!), including:</p><ul className="py-4 list-disc htitle"><li className="text-lg">YOU MUST HAVE A PERSONAL CREDIT SCORE OF AT LEAST 625.</li><li className="text-lg">YOUR BUSINESS NEEDS TO HAVE BEEN OPERATING FOR AT LEAST TWO YEARS.</li><li className="text-lg">YOU NEED TO HAVE A MINIMUM OF $250,000 IN ANNUAL REVENUE.</li></ul><p className="text-xl">Kapitus financing products vary by state, so business loans may not be available to everyone. Not to worry! We have a product for every business in every state. Please contact a Kapitus Financing Specialist to discuss your particular circumstances.</p></div>
+        </TabPanel>
+        <TabPanel value={value} index={1} dir={theme.direction}>
+          <div><h2 className="text-kapitus font-bold">How To Apply?</h2><p className="text-xl">The Kapitus business loan application process is quick and painless! It should only take you about 5-10 minutes to get your full application package submitted. Simply fill out our online form, and provide your three most recent bank statements, and…that’s it, you’re done! Once your package has been submitted, a Kapitus Financing Specialist will be in touch with a decision or, when necessary, to learn more about your business. Once approved, your Financing Specialist will work with you to build out terms and a payment plan that works best for your business.</p><button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">APPLY NOW</button></div>
+        </TabPanel>
+        <TabPanel value={value} index={2} dir={theme.direction}>
+          <div className="htitle"><h2 className="text-kapitus font-bold">Who Should Use A Business Loan?</h2><p className="text-xl">Kapitus business loans are available to businesses in almost every industry (though some exclusions do apply) and are useful when unexpected expenses arise. Here are the industries that most frequently use our Business Loans:</p><li className="text-lg">PERSONAL SERVICES</li><li className="text-lg">BUSINESS SERVICES</li><li className="text-lg">GENERAL CONTRACTORS</li><li className="text-lg">RESTAURANTS</li><li className="text-lg">RETAIL</li><li className="text-lg">SPECIALTY TRADES</li></div>
+        </TabPanel>
+      </SwipeableViews>
       <motion.div ref={ref} className="px-7 py-2">
         <span className="text-kapitus font-bold text-3xl">Why Consider A Business Loan?</span>
         <p className="text-xl">Business loans are one of the most versatile forms of business financing available to owners on the market today.  They are available in a large range of sizes, come with an array of payment options and there is no limit on the way you can use the funds for your business. Whether you’re looking to grow, maintain daily operations, or build yourself a cash flow safety net to manage the unexpected, Kapitus can help you build the right loan product for your unique business needs.</p>
@@ -191,9 +386,32 @@ const Productservices = (props) => {
             <motion.div className="inline-flex text-kapitus items-center bg-white text-blue-700 font-semibold py-2 px-6 pb-3 rounded ml-auto" onClick={shortForm}>APPLY NOW</motion.div>
           </div>
         </motion.nav>
-        </div>)}
+        </div></Box>)}
     </AnimatePresence>
-    
+    <Sheet
+        isOpen={isOpen}
+        onClose={close}
+        //snapPoints = {[0, 0.7, 200, 0]}
+        snapPoints={[-50, 0.5, 100, 0]}
+        initialSnap={0}
+        onSnap={(snapIndex) => {
+          console.log(snapIndex)
+          setSnapPoint(snapIndex+initial)
+          //console.log('> Current snap point index:', initial)
+          setInitial(initial + 1)
+        }
+        }
+      >
+      <Sheet.Container>
+        <Sheet.Content>
+        <motion.div className="grid fixed z-50 cursor-pointer text-white place-items-center w-full h-12 bg-kapitus text-lg capitalize" initial={{ y: -350, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: .3, ...transition }}} exit={{ y: -350, opacity: 0, transition: { delay: 0.5, duration: 0.5 }}}>
+        <div className="absolute left-0 pl-6" onClick={closeSheet}><FaChevronLeft size="20" /></div>
+        Get A Free Quote Today
+        </motion.div>
+          <Shortform entry_id={props.entry_id || ''} credentials={props.credentials} product={router.query.slug} />
+        </Sheet.Content>
+      </Sheet.Container>
+      </Sheet>
     </>
   )
 }
