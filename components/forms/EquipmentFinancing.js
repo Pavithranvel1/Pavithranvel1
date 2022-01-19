@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import axios from 'axios'
 import { useForm } from "react-hook-form"
 import { Base64 } from 'js-base64'
-
+var date1 = 'yyyy-mm-dd'
 const EquipmentFinancing = ( { refill, credentials } ) => {
   console.log(credentials)
   const [entryid, setEntryId] = useState(0)
@@ -126,6 +126,20 @@ const EquipmentFinancing = ( { refill, credentials } ) => {
       equipmentForm.map((item, i) => {
         if(item.name == event.target.name) {
           formData[item.id] = event.target.value
+        }
+        else if(typeof item.name == 'object'){
+          item.name.map((item1, i) => {
+            if('year' == event.target.name){
+              date1 = date1.replace(date1.substring(0, 4), event.target.value)
+            }
+            else if('month' == event.target.name && i == 2){
+              date1 = date1.replace(date1.substring(5, 7), event.target.value)
+            }
+            else if('day' == event.target.name) {
+              date1 = date1.replace(date1.substring(8, 10), event.target.value)
+            }
+          })
+          formData[6] = date1
         }
       })
       formData.form_id = 41 //form id
