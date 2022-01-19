@@ -71,13 +71,12 @@ const Productservices = (props) => {
 
   const theme = useTheme();
   const router = useRouter();
+  const { query: { slug }} = useRouter();
   const [ref, inView ] = useInView({threshold: 0});
   //const { ref, inView, entry } = useInView();
   const [ref1, inView1 ] = useInView();
   const animation = useAnimation();
   const animation1 = useAnimation();
-  /*const productname = Object.keys(router.query).length >=1 ? router.query.slug.replaceAll('-', ' ') : ''*/
-  const productname =  typeof props.productname !== 'indefined' ?  props.productname.replaceAll('-', ' ') : ''
 
   useEffect(() => {
     localStorage.removeItem('gfshortform')
@@ -321,7 +320,7 @@ const Productservices = (props) => {
       <Box sx={{ bgcolor: 'background.paper' }}>
       <div className="inset-0 pointer-events-auto" style={{opacity: opacity}}>
       <motion.div className="fixed" initial="initial" animate="animate" exit="exit" drag="y" dragConstraints={{ top: 0, bottom:0 }} onDrag={onDrag} variants={textVariants}>
-        <motion.div className="grid fixed z-50 cursor-pointer text-white place-items-center w-full h-12 bg-kapitus text-lg capitalize" onClick={closeModal} initial={{ y: -350, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: .5, ...transition }}}><div className="absolute left-0 pl-6"><FaChevronLeft size="20" /></div>{productname}
+        <motion.div className="grid fixed z-50 cursor-pointer text-white place-items-center w-full h-12 bg-kapitus text-lg capitalize" onClick={closeModal} initial={{ y: -350, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: .5, ...transition }}}><div className="absolute left-0 pl-6"><FaChevronLeft size="20" /></div>{slug.replaceAll('-', ' ')}
         </motion.div>
         <AppBar position="static" className="pt-12 h-56">
         <Tabs
@@ -420,7 +419,7 @@ export async function getServerSideProps(context) {
 
   return {
     props:{
-      productname: context.query.slug, entry_id: entryId, credentials: { user: process.env.PRIVATE_USER, password: process.env.PASSWORD }
+      entry_id: entryId, credentials: { user: process.env.PRIVATE_USER, password: process.env.PASSWORD }
     }
   }
 }
