@@ -77,11 +77,9 @@ const Productservices = (props) => {
   const animation = useAnimation();
   const animation1 = useAnimation();
   /*const productname = Object.keys(router.query).length >=1 ? router.query.slug.replaceAll('-', ' ') : ''*/
-  const productname =  router.query.slug ? router.query.slug.replaceAll('-', ' ') : ''
+  const productname =  props.productname.replaceAll('-', ' ')
 
   useEffect(() => {
-    console.log(router.query)
-    console.log(router.query.slug)
     localStorage.removeItem('gfshortform')
   }, [])
 
@@ -419,9 +417,10 @@ const Productservices = (props) => {
 
 export async function getServerSideProps(context) {
   const entryId = context.query.gf_token || ''
+
   return {
     props:{
-      entry_id: entryId, credentials: { user: process.env.PRIVATE_USER, password: process.env.PASSWORD }
+      productname: context.query.slug, entry_id: entryId, credentials: { user: process.env.PRIVATE_USER, password: process.env.PASSWORD }
     }
   }
 }
