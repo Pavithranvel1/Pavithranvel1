@@ -15,32 +15,6 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 const tabs1 = {'requirement': 0, 'how-to-apply': 1, 'who-is-this-for': 2 }
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {children}
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
 const Productservices = (props) => {
 
   const [isOpen, setOpen] = useState(false);
@@ -178,7 +152,6 @@ const Productservices = (props) => {
     <>
     <AnimatePresence>
     {back && (
-      <Box sx={{ bgcolor: 'background.paper' }}>
       <div className="inset-0 pointer-events-auto" style={{opacity: opacity}}>
       <motion.div className="fixed" initial="initial" animate="animate" exit="exit" drag="y" dragConstraints={{ top: 0, bottom:0 }} onDrag={onDrag} variants={textVariants}>
         <motion.div className="grid fixed z-50 cursor-pointer text-white place-items-center w-full h-12 bg-kapitus text-lg capitalize" onClick={closeModal} initial={{ y: -350, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: .5, ...transition }}}><div className="absolute left-0 pl-6"><FaChevronLeft size="20" /></div>{productname}
@@ -218,32 +191,9 @@ const Productservices = (props) => {
             <motion.div className="inline-flex text-kapitus items-center bg-white text-blue-700 font-semibold py-2 px-6 pb-3 rounded ml-auto" onClick={shortForm}>APPLY NOW</motion.div>
           </div>
         </motion.nav>
-        </div></Box>)}
+        </div>)}
     </AnimatePresence>
-    <Sheet
-        isOpen={isOpen}
-        onClose={close}
-        //snapPoints = {[0, 0.7, 200, 0]}
-        snapPoints={[-50, 0.5, 100, 0]}
-        initialSnap={0}
-        onSnap={(snapIndex) => {
-          console.log(snapIndex)
-          setSnapPoint(snapIndex+initial)
-          //console.log('> Current snap point index:', initial)
-          setInitial(initial + 1)
-        }
-        }
-      >
-      <Sheet.Container>
-        <Sheet.Content>
-        <motion.div className="grid fixed z-50 cursor-pointer text-white place-items-center w-full h-12 bg-kapitus text-lg capitalize" initial={{ y: -350, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: .3, ...transition }}} exit={{ y: -350, opacity: 0, transition: { delay: 0.5, duration: 0.5 }}}>
-        <div className="absolute left-0 pl-6" onClick={closeSheet}><FaChevronLeft size="20" /></div>
-        Get A Free Quote Today
-        </motion.div>
-          <Shortform entry_id={props.entry_id || ''} credentials={props.credentials} product={router.query.slug} />
-        </Sheet.Content>
-      </Sheet.Container>
-      </Sheet>
+    
     </>
   )
 }
