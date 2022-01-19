@@ -83,7 +83,9 @@ const Productservices = (props) => {
 
   useEffect(() => {
     localStorage.removeItem('gfshortform')
-    setName(slug)
+    setName(() => {
+      return slug.replaceAll('-',' ')
+    })
   }, [])
 
   useEffect(() => {
@@ -324,7 +326,7 @@ const Productservices = (props) => {
       <Box sx={{ bgcolor: 'background.paper' }}>
       <div className="inset-0 pointer-events-auto" style={{opacity: opacity}}>
       <motion.div className="fixed" initial="initial" animate="animate" exit="exit" drag="y" dragConstraints={{ top: 0, bottom:0 }} onDrag={onDrag} variants={textVariants}>
-        <motion.div className="grid fixed z-50 cursor-pointer text-white place-items-center w-full h-12 bg-kapitus text-lg capitalize" onClick={closeModal} initial={{ y: -350, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: .5, ...transition }}}><div className="absolute left-0 pl-6"><FaChevronLeft size="20" /></div>{name.replaceAll('-',' ')}
+        <motion.div className="grid fixed z-50 cursor-pointer text-white place-items-center w-full h-12 bg-kapitus text-lg capitalize" onClick={closeModal} initial={{ y: -350, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: .5, ...transition }}}><div className="absolute left-0 pl-6"><FaChevronLeft size="20" /></div>{name}
         </motion.div>
         <AppBar position="static" className="pt-12 h-56">
         <Tabs
