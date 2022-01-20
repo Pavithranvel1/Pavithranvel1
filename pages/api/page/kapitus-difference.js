@@ -41,14 +41,7 @@ export default async function handler(req, resp) {
             
             financeSolution
           }
-          carouselAcf {
-            carouselData {
-              carouselContent
-              carouselImage {
-                sourceUrl
-              }
-            }
-          }
+          
         }
     }`;
 
