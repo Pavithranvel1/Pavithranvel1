@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import useInView from "react-cool-inview";
 import dynamic from "next/dynamic";
@@ -6,6 +7,9 @@ import useSWR from "swr";
 import Header from "../../components/Header";
 import ProductBanner from "../../components/products/IndividualBanner";
 import Content from "../../components/products/Content";
+import { useMediaQuery } from "react-responsive";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -92,6 +96,31 @@ export default function ProductPage() {
     rootMargin: "50px",
   });
 
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 1,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 1,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+
+  const isBigScreen = useMediaQuery({ query: "(min-width: 1824px)" });
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+  const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
+  const isRetina = useMediaQuery({ query: "(min-resolution: 2dppx)" });
+
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
   const individualProducts = data?.individualProducts;
@@ -132,6 +161,40 @@ export default function ProductPage() {
               </div>
             </div>
           </section>
+          {isTabletOrMobile && (
+            <section className="w-full bg-kapitus">
+              <div className="container">
+                <div className="ml-5 p-5">
+                  <Carousel
+                    swipeable={true}
+                    draggable={true}
+                    showDots={false}
+                    responsive={responsive}
+                    ssr={true} // means to render carousel on server-side.
+                    infinite={true}
+                    keyBoardControl={true}
+                    transitionDuration={800}
+                    containerClass="carousel-container"
+                    itemClass="carousel-item-padding-40-px"
+                    autoPlay={false}
+                    arrows={true}
+                    removeArrowOnDeviceType={["tablet", "mobile"]}
+                  >
+                    <span className="xs:p-2 text-pink md:pr-10 ">
+                      <Link href="/products-services/business-loans">
+                        Business Loans
+                      </Link>
+                    </span>
+                    <span className="xs:p-2 text-pink md:pr-10 ">
+                      <Link href="/products-services/equipment-financing">
+                        Equipment Financing
+                      </Link>
+                    </span>
+                  </Carousel>
+                </div>
+              </div>
+            </section>
+          )}
           <section className="w-full">
             <ProductBanner data={IndividualBanner} />
           </section>

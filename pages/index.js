@@ -26,8 +26,9 @@ const Footer = dynamic(() => import("../components/Footer"), {
 
 export default function Home() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
   const { data, error } = useSWR("/api/page/home", fetcher, {
-    refreshInterval: 10000,
+    revalidateOnMount: true,
   });
 
   let { asPath, pathname } = useRouter();
@@ -59,11 +60,10 @@ export default function Home() {
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
 
-  // const BannerData = data?.page?.ThreeColumnStaticPage?.banner;
-  // alert(data?.page?.ThreeColumnStaticPage?.banner?.bannerImage?.sourceUrl);
   return (
     <>
       <Header />
+      {/* Banner Section Start */}
       <section className="relative">
         <div className="opacity-40">
           <div className={heroDesktopImage}>
@@ -137,6 +137,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+      {/* Banner Section End */}
+
       <section className="container" ref={observe}>
         {inView && (
           <script
@@ -146,12 +148,8 @@ export default function Home() {
           ></script>
         )}
       </section>
+      {/* Three Card Section */}
       <section ref={observe}>
-        {/* <div className="xs:w-full">
-          {inView && (
-            <Content data={data?.page?.ThreeColumnStaticPage?.cards} />
-          )}
-        </div> */}
         {inView && (
           <div className="container my-10">
             <section className="grid gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
@@ -235,6 +233,7 @@ export default function Home() {
           </div>
         )}
       </section>
+      {/* Three Card Section End */}
 
       <section>{inView && <Footer />}</section>
       <Head>

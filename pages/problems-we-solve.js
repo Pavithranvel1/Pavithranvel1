@@ -26,7 +26,7 @@ export default function Contant() {
   });
 
   const { data, error } = useSWR(`/api/page/${asPath}`, fetcher, {
-    refreshInterval: 10000,
+    revalidateOnMount: true,
   });
 
   if (error) return <div>failed to load</div>;
