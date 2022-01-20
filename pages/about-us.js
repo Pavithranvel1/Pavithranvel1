@@ -195,7 +195,6 @@ export default function AboutUs() {
       <Header />
       <AboutBanner data={data?.aboutUs} />
       <section>
-        {" "}
         <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto">
           {ReactHtmlParser(data?.aboutUs?.aboutDescription)}
         </div>
