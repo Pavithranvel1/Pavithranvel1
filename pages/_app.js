@@ -24,7 +24,7 @@ export default function App({ Component, pageProps, statusCode }) {
     <>
       <ApolloProvider client={client}>
         {/* <Analytics /> */}
-
+        <title>Kapitus</title>
         <Component {...pageProps} />
       </ApolloProvider>
     </>
