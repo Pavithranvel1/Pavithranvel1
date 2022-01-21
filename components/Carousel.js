@@ -42,21 +42,20 @@ export default function CarouselComponent({ data }) {
       transitionDuration={800}
     >
       {data?.carouselData.map((value, key) => (
-        <div className="w-full min-h-screen" key={key}>
-          <div className="w-1/2">
+        <div className="w-full min-h-screen flex bg-carouselBlue" key={key}>
+          <div className="xs:w-full md:w-1/2 flex-col">
             <Image
               src={value?.carouselImage?.sourceUrl}
               // width={getWidth() * value?.carouselImage?.sourceUrl.length}
-              width="1000"
-              height="1000"
-              layout="fill"
+              width="650"
+              height="650"
+              layout="intrinsic"
               alt="Mountains"
               objectFit="cover"
-              className="opacity-50"
             />
           </div>
-          <div className="xs:w-full absolute inset-y-0 right-5 md:top-1/4">
-            <div className="p-4 text-red-900">
+          <div className="xs:w-full absolute inset-y-0 right-5 md:top-1/4 w-1/2 flex-col">
+            <div className="p-4 text-white carouselContent">
               {ReactHtmlParser(value?.carouselContent)}
             </div>
           </div>

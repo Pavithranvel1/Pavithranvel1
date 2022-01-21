@@ -13,6 +13,9 @@ body {
   background-color: yellowgreen;
   border-radius: 15px;
 }
+.carouselContent p {
+  color: #fff !important;
+}
 .mapboxgl-control-container {
   display: none;
 }

@@ -81,7 +81,7 @@ export default function Banner({ data }) {
                   {ReactHtmlParser(data?.staticBannerDescription)}
                 </div>
                 <div className="xs:text-xs sm:text-lg mt-5 md:text-xl text-kapitus">
-                  <button>{ReactHtmlParser(data?.staticBannerButton)}</button>
+                  {ReactHtmlParser(data?.staticBannerButton)}
                 </div>
               </div>
 

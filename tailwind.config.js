@@ -31,6 +31,7 @@ module.exports = {
       lightgreen: "rgb(114 182 100)",
       kapitusblue: "#66899e",
       formred: "#790000",
+      carouselBlue: "rgb(93, 127, 173)",
       descGreen: "rgb(0, 114, 57)",
       code: {
         green: "#b5f4a5",
