@@ -90,7 +90,9 @@ export default function PartnerPage() {
           )}
         </div>
       </div>
-      <div ref={observe}>{inView && <Footer />}</div>
+      <div>
+        <Footer />
+      </div>
     </>
   );
 }
