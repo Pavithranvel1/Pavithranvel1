@@ -28,6 +28,15 @@ export default async function handler(req, resp) {
                 }
               }
             }
+            cards {
+              staticCardTitle
+              staticCardContent
+              staticCardButton
+              staticButtonLink
+              staticSvgIcon {
+                sourceUrl
+              }
+            }
             financeSolution
           }
           accordionData {

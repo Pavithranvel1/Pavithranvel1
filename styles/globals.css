@@ -38,6 +38,16 @@ body {
   z-index: 999;
   text-align: center;
 }
+.stickyHeader {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #00395d;
+  color: #fff;
+  padding: 5px 0px;
+  font-size: 20px;
+  z-index: 999;
+}
 /* .blogFooterSticky {
   position: -webkit-sticky;
   position: sticky;
@@ -160,11 +170,16 @@ a {
   width: 10px !important;
   height: 10px !important;
 }
+ul {
+  margin-top: 15px;
+  margin-left: 25px;
+}
 ul li {
   color: #66899e;
-  line-height: 28.5px;
+  line-height: 35px;
   font-weight: 400;
   font-size: 18px;
+  list-style: disc;
 }
 
 * {

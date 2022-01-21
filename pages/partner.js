@@ -31,7 +31,6 @@ export default function Contant() {
   if (!data) return <div>loading...</div>;
 
   const BannerData = data?.ThreeColumnStaticPage?.banner;
-
   return (
     <>
       <Header />
@@ -43,7 +42,7 @@ export default function Contant() {
           </div>
         </div>
       </div>
-      <div ref={observe} className="float-left clear-both w-full">
+      <section ref={observe} className="w-full">
         <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto">
           <div className="container">
             <div className="xs:grid-cols-1 md:grid grid-cols-2 gap-4">
@@ -67,15 +66,15 @@ export default function Contant() {
             </div>
           </div>
         </div>
-      </div>
-      <div ref={observe}>
+      </section>
+      <section ref={observe}>
         {inView && (
           <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto">
             {ReactHtmlParser(data?.ThreeColumnStaticPage?.financeSolution)}
           </div>
         )}
-      </div>
-      <div ref={observe}>{inView && <Footer />}</div>
+      </section>
+      <section ref={observe}>{inView && <Footer />}</section>
     </>
   );
 }

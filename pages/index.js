@@ -67,18 +67,18 @@ export default function Home() {
       <section className="relative">
         <div className="opacity-40">
           <div className={heroDesktopImage}>
-            {data?.page?.ThreeColumnStaticPage?.banner?.bannerImage?.sourceUrl
-              ?.length > 0 && (
+            {data?.page?.ThreeColumnStaticPage?.banner?.staticBannerImage
+              ?.sourceUrl?.length > 0 && (
               <Image
                 src={
-                  data?.page?.ThreeColumnStaticPage?.banner?.bannerImage
+                  data?.page?.ThreeColumnStaticPage?.banner?.staticBannerImage
                     ?.sourceUrl
                 }
                 width={
-                  data?.page?.ThreeColumnStaticPage?.banner?.bannerImage
+                  data?.page?.ThreeColumnStaticPage?.banner?.staticBannerImage
                     ?.mediaDetails?.width
                 }
-                // height={data?.bannerImage?.mediaDetails?.height}
+                // height={data?.staticBannerImage?.mediaDetails?.height}
                 height={350}
                 layout="intrinsic"
                 objectFit="cover"
@@ -92,12 +92,12 @@ export default function Home() {
             )}
           </div>
           <div className={heroMobileImage}>
-            {data?.page?.ThreeColumnStaticPage?.banner?.mobileBannerImage
+            {data?.page?.ThreeColumnStaticPage?.banner?.staticMobileBannerImage
               ?.sourceUrl?.length > 0 && (
               <Image
                 src={
-                  data?.page?.ThreeColumnStaticPage?.banner?.mobileBannerImage
-                    ?.sourceUrl
+                  data?.page?.ThreeColumnStaticPage?.banner
+                    ?.staticMobileBannerImage?.sourceUrl
                 }
                 width={500}
                 height={750}
@@ -118,16 +118,18 @@ export default function Home() {
             <div className="xs:grid col-auto lg:grid grid-cols-2 gap-1 p-3">
               <div className="text-kapitus mb-10">
                 <div className="xs:w-full text-3xl md:text-5xl">
-                  {data?.page?.ThreeColumnStaticPage?.banner?.bannerTitle}
+                  {data?.page?.ThreeColumnStaticPage?.banner?.staticBannerTitle}
                 </div>
                 <div className="text-sm md:text-xl lg:text-2xl my-10">
                   {ReactHtmlParser(
-                    data?.page?.ThreeColumnStaticPage?.banner?.bannerDescription
+                    data?.page?.ThreeColumnStaticPage?.banner
+                      ?.staticBannerDescription
                   )}
                 </div>
                 <div className="xs:text-xs sm:text-lg mt-5 md:text-2xl text-kapitus">
                   {ReactHtmlParser(
-                    data?.page?.ThreeColumnStaticPage?.banner?.bannerButton
+                    data?.page?.ThreeColumnStaticPage?.banner
+                      ?.staticBannerButton
                   )}
                 </div>
               </div>
