@@ -77,11 +77,11 @@ export default function Banner({ data }) {
                 <div className="xs:w-full text-3xl md:text-5xl">
                   {data?.staticBannerTitle}
                 </div>
-                <div className="text-sm md:text-xl lg:text-2xl my-10">
+                <div className="text-sm md:text-xl lg:text-2xl text-descGreen my-10">
                   {ReactHtmlParser(data?.staticBannerDescription)}
                 </div>
-                <div className="xs:text-xs sm:text-lg mt-5 md:text-2xl text-kapitus">
-                  {ReactHtmlParser(data?.staticBannerButton)}
+                <div className="xs:text-xs sm:text-lg mt-5 md:text-xl text-kapitus">
+                  <button>{ReactHtmlParser(data?.staticBannerButton)}</button>
                 </div>
               </div>
 

@@ -21,9 +21,12 @@ const Footer = dynamic(() => import("../components/Footer"), {
 export default function Contant() {
   const { asPath, pathname } = useRouter();
   const { observe, inView } = useInView({
-    onEnter: ({ unobserve }) => unobserve(), // only run once
-    onLeave: ({ observe }) => observe(),
+    // Stop observe when the target enters the viewport, so the "inView" only triggered once
+    unobserveOnEnter: true,
+    // For better UX, we can grow the root margin so the image will be loaded before it comes to the viewport
+    rootMargin: "50px",
   });
+
 
   const { data, error } = useSWR(`/api/page/${asPath}`, fetcher, {
     revalidateOnMount: true,

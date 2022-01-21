@@ -239,6 +239,15 @@ section.slide-entry {
   float: left;
   width: 25%;
 }
+.rightPartner strong {
+  color: #a94068;
+  font-weight: 500;
+}
+.rightPartner h3 {
+  color: #00395d;
+  font-size: 30px;
+  font-weight: 400;
+}
 #steps section {
   float: left;
   width: 20%;

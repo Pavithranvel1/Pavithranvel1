@@ -26,7 +26,6 @@ const shimmer = (w, h) => `
   </svg>`;
 
 const Content = ({ data }) => {
-  // console.log(data);
   const { asPath, pathname } = useRouter();
 
   return (

@@ -21,9 +21,12 @@ const Footer = dynamic(() => import("../components/Footer"), {
 export default function Contant() {
   const { asPath, pathname } = useRouter();
   const { observe, inView } = useInView({
-    onEnter: ({ unobserve }) => unobserve(), // only run once
-    onLeave: ({ observe }) => observe(),
+    // Stop observe when the target enters the viewport, so the "inView" only triggered once
+    unobserveOnEnter: true,
+    // For better UX, we can grow the root margin so the image will be loaded before it comes to the viewport
+    rootMargin: "50px",
   });
+
 
   const { data, error } = useSWR(`/api/page/${asPath}`, fetcher);
 
@@ -35,11 +38,9 @@ export default function Contant() {
     <>
       <Header />
       <Banner data={BannerData} />
-      <div>
-        <div className="py-10 px-5">
-          <div ref={observe}>
-            {inView && <Content data={data?.ThreeColumnStaticPage?.cards} />}
-          </div>
+      <div className="py-10 px-5">
+        <div ref={observe}>
+          {inView && <Content data={data?.ThreeColumnStaticPage?.cards} />}
         </div>
       </div>
       <section ref={observe} className="w-full">
@@ -70,7 +71,7 @@ export default function Contant() {
       <section ref={observe}>
         {inView && (
           <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto">
-            {ReactHtmlParser(data?.ThreeColumnStaticPage?.financeSolution)}
+            {/* {ReactHtmlParser(data?.ThreeColumnStaticPage?.financeSolution)} */}
           </div>
         )}
       </section>
