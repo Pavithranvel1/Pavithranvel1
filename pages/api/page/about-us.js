@@ -7,7 +7,7 @@ export default async function handler(req, resp) {
         page(idType: URI, id: $id) {
           aboutUs {
             aboutDescription
-            bannerTitle
+            aboutTitle
             bannerImage {
                 sourceUrl
                 mediaDetails {
