@@ -30,7 +30,7 @@ export default function CarouselComponent({ data }) {
     <Carousel
       swipeable={true}
       draggable={false}
-      showDots={true}
+      showDots={false}
       responsive={responsive}
       ssr={true} // means to render carousel on server-side.
       infinite={true}
@@ -38,23 +38,23 @@ export default function CarouselComponent({ data }) {
       containerClass="carousel-container"
       removeArrowOnDeviceType={["tablet", "mobile"]}
       autoPlay={true}
-      autoPlaySpeed={2000}
+      autoPlaySpeed={4000}
       transitionDuration={800}
     >
       {data?.carouselData.map((value, key) => (
-        <div className="w-full min-h-screen flex bg-carouselBlue" key={key}>
-          <div className="xs:w-full md:w-1/2 flex-col">
+        <div className="w-full bg-carouselBlue" key={key}>
+          <div className="xs:w-full md:w-1/2">
             <Image
               src={value?.carouselImage?.sourceUrl}
               // width={getWidth() * value?.carouselImage?.sourceUrl.length}
               width="650"
-              height="650"
+              height="550"
               layout="intrinsic"
               alt="Mountains"
               objectFit="cover"
             />
           </div>
-          <div className="xs:w-full absolute inset-y-0 right-5 md:top-1/4 w-1/2 flex-col">
+          <div className="xs:w-full absolute inset-y-0 right-5 md:top-1/4 w-1/2">
             <div className="p-4 text-white carouselContent">
               {ReactHtmlParser(value?.carouselContent)}
             </div>
