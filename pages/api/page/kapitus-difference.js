@@ -9,36 +9,25 @@ export default async function handler(req, resp) {
           title
           uri
           ThreeColumnStaticPage {
-            cards {
-                cardContent
-                cardTitle
-                svgIcon {
-                sourceUrl
-                }
-            }
-            banner {
-                bannerButton
-                bannerDescription
-                bannerTitle
-                fieldGroupName
-                bannerImage {
+              banner {
+                staticBannerButton
+                staticBannerDescription
+                staticBannerTitle
+                staticMobileBannerImage {
+                  sourceUrl
                   mediaDetails {
                     width
                     height
-                    file
                   }
-                  sourceUrl
                 }
-                mobileBannerImage {
+                staticBannerImage {
+                  sourceUrl
                   mediaDetails {
-                    width
                     height
-                    file
+                    width
                   }
-                  sourceUrl
                 }
-            }
-            
+              }
             financeSolution
           }
           

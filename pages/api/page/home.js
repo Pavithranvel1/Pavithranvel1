@@ -16,24 +16,22 @@ export default async function handler(req, resp) {
           title
           ThreeColumnStaticPage {
             banner {
-              bannerButton
-              bannerDescription
-              bannerTitle
-              bannerImage {
+              staticBannerButton
+              staticBannerDescription
+              staticBannerTitle
+              staticMobileBannerImage {
+                sourceUrl
                 mediaDetails {
                   width
                   height
-                  file
                 }
-                sourceUrl
               }
-              mobileBannerImage {
-                mediaDetails {
-                  width
-                  height
-                  file
-                }
+              staticBannerImage {
                 sourceUrl
+                mediaDetails {
+                  height
+                  width
+                }
               }
             }
           }

@@ -39,9 +39,9 @@ const Content = ({ data }) => {
               key={key}
             >
               <div className="grid place-items-center w-full text-right">
-                {value?.svgIcon?.sourceUrl?.length > 0 && (
+                {value?.staticSvgIcon?.sourceUrl?.length > 0 && (
                   <Image
-                    src={value?.svgIcon?.sourceUrl}
+                    src={value?.staticSvgIcon?.sourceUrl}
                     width="100"
                     height="100"
                     alt=""
@@ -56,15 +56,17 @@ const Content = ({ data }) => {
               </div>
 
               <h2 className="text-3xl font-semibold text-center my-10 uppercase text-kapitus">
-                {ReactHtmlParser(value?.cardTitle)}
+                {ReactHtmlParser(value?.staticCardTitle)}
               </h2>
               <div className="place-items-center">
-                <p className="mb-4 p-5">{value?.cardContent}</p>
+                <p className="mb-4 p-5">
+                  {ReactHtmlParser(value?.staticCardContent)}
+                </p>
               </div>
               {asPath == "/partner" ? (
                 <div className="grid place-items-center w-full text-right my-5 absolute bottom-0">
                   <Link
-                    href={`/partner/${value?.cardTitle
+                    href={`/partner/${value?.staticCardTitle
                       .toLowerCase()
                       .replace(" ", "-")}`}
                     passHref
