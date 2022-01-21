@@ -138,10 +138,11 @@ i.fa.fa-search {
   color: #fff;
 }
 button {
-  padding: 15px 30px;
+  padding: 10px 30px;
   background: #00395d;
   color: #fff;
   margin-top: 20px;
+  font-size: 15px !important;
 }
 p button {
   padding: 10px 25px;
