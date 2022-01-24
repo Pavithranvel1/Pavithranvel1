@@ -6,7 +6,10 @@ module.exports = {
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {		backgroundImage: {
+        'desktopform': "url('/images/form-banner.jpg')",
+        'mobileform': "url('/images/short-banner.jpg')"
+     }},
     fontFamily: {
       body: ["Lato"],
     },
