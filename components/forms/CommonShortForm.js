@@ -3,8 +3,8 @@ import { equipIndustries, lists, creditScores, aboutUs, months, days, years, sta
 import Image from 'next/image'
 import { useRouter } from "next/router";
 import axios from 'axios'
-import Phoneformat from '../formatter/phonenumber'
-import Currencyformat from "../formatter/currencyformat"
+import Phonenumber from '../formatter/phonenumber'
+import currencyformat from "../formatter/currencyformat"
 import { useForm } from "react-hook-form"
 import { Base64 } from 'js-base64'
 var date1 = 'yyyy-mm-dd'
@@ -101,20 +101,20 @@ const Commonshortform = ( { refill, credentials } ) => {
       setSales(e.target.value)
     }    
     else if(e.target.name == 'phone_number'){
-      // this is where we'll call the Phoneformat function
-      const formattedPhoneNumber = Phoneformat(e.target.value);
+      // this is where we'll call the Phonenumber function
+      const formattedPhoneNumber = Phonenumber(e.target.value);
       // we'll set the input value using our setPhone
       setPhone(formattedPhoneNumber)
     }
     else if(e.target.name == 'fund'){
-      // this is where we'll call the Currencyformat function
-      const formattedFund = Currencyformat(e.target.value);
+      // this is where we'll call the currencyformat function
+      const formattedFund = currencyformat(e.target.value);
       // we'll set the input value using our setFund
       setFund(formattedFund)
     }
     else if(e.target.name == 'annual_revenue'){
-      // this is where we'll call the Currencyformat function
-      const formattedFund = Currencyformat(e.target.value);
+      // this is where we'll call the currencyformat function
+      const formattedFund = currencyformat(e.target.value);
       // we'll set the input value using our setRevenue
       setRevenue(formattedFund)
     }

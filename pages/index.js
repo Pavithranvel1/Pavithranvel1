@@ -1,4 +1,5 @@
 import Head from "next/head";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import Script from "next/script";
@@ -16,7 +17,7 @@ import Link from "next/link";
 
 import Header from "../components/Header";
 import Banner from "../components/Banner";
-
+let localdata = ['gfproduct', 'gffund', 'gfindustry', 'gfmonth', 'gfyear', 'gfcheckbox', 'gfrevenue', 'gfrepayment', 'gfbusiness', 'gfloan', 'gflender', 'gfcreditscore', 'gfpersonalinfo']
 const Footer = dynamic(() => import("../components/Footer"), {
   loading: function ld() {
     return <p>Loading...</p>;
@@ -59,6 +60,22 @@ export default function Home() {
     // For better UX, we can grow the root margin so the image will be loaded before it comes to the viewport
     rootMargin: "50px",
   });
+
+  useEffect(() => {
+    if(!localStorage.getItem('reload')){
+      localdata.map((item, i) => localStorage.removeItem(item))
+      localStorage.removeItem('formstep')
+    }
+    localStorage.removeItem('reload')
+  }, [])
+
+  const openForm = (event) => {
+    setTimeout(function(){
+    //setOpen(true)
+    //router.push(`${router.asPath}#get-started`)
+    router.push(`/get-started/${localStorage.getItem('formstep') || 1}`)
+    }, 700)
+  }
 
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
@@ -129,7 +146,7 @@ export default function Home() {
                       ?.staticBannerDescription
                   )}
                 </div>
-                <div className="xs:text-xs sm:text-lg mt-5 md:text-2xl text-kapitus">
+                <div className="xs:text-xs sm:text-lg mt-5 md:text-2xl text-kapitus" onClick={openForm}>
                   {ReactHtmlParser(
                     data?.page?.ThreeColumnStaticPage?.banner
                       ?.staticBannerButton

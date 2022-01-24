@@ -6,7 +6,7 @@ import ReactHtmlParser, { htmlparser2 } from "react-html-parser";
 import useSWR from "swr";
 import { request } from "graphql-request";
 import { useRouter } from "next/router";
-import ApplyNow from "../../components/forms/CommonShortForm";
+import Commonshortform from "../../components/forms/CommonShortForm";
 import {
   bgWrap,
   bgText,
@@ -151,7 +151,7 @@ export default function IndividualBanner({ data }) {
                 </div>
 
                 <div className="xs:w-full hidden sm:hidden md:block z-50">
-                  <ApplyNow />
+                  <Commonshortform />
                 </div>
               </div>
             </div>
