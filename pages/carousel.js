@@ -29,25 +29,25 @@ export default function productOffer() {
 			<div className="h-64 text-white items-center justify-center flex">Products We Offer</div>
 
     <div className={style.slider}>
-      <Link href="#slide-1" scroll={false}>
+      <Link href="#slide-1" scroll={false} passHref={true}>
         <a>1</a>
       </Link>
-      <Link href="#slide-2" scroll={false}>
+      <Link href="#slide-2" scroll={false} passHref={true}>
         <a>2</a>
       </Link>
-      <Link href="#slide-3" scroll={false}>
+      <Link href="#slide-3" scroll={false} passHref={true}>
         <a>3</a>
       </Link>
-      <Link href="#slide-4" scroll={false}>
+      <Link href="#slide-4" scroll={false} passHref={true}>
         <a>4</a>
       </Link>
-      <Link href="#slide-5" scroll={false}>
+      <Link href="#slide-5" scroll={false} passHref={true}>
         <a>5</a>
       </Link>
     <div className={style.slides}>
     {products.map((product, index) => {
       return (
-        <Link key={index} href={`product-we-offer/${product.src}`}>
+        <Link key={index} href={`product-we-offer/${product.src}`} passHref={true}>
         <motion.div id={`slide-${index+1}`}>
           <motion.a>
             <motion.img layoutId={`${product.src}`} src={`/images/${product.src}.jpg`} className="rounded-lg h-44" />

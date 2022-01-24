@@ -84,7 +84,7 @@ const Productservices = (props) => {
     setName(() => {
       return slug.replaceAll('-',' ')
     })
-  }, [])
+  }, [slug])
 
   useEffect(() => {
     setTimeout(function(){
@@ -123,7 +123,7 @@ const Productservices = (props) => {
         }
       }
     }
-  }, [snapPoint]);
+  }, [snapPoint, router]);
 
    useEffect(() => {
     const route = router.query
