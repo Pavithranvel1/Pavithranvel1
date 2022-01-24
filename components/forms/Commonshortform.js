@@ -142,9 +142,9 @@ const Commonshortform = ( { refill, credentials } ) => {
           formData[6] = date1
         }
       })
-      formData.form_id = 47 //form id
+      formData.form_id = 47 //form Id
       if(entryid)
-        formData.entry_id = entryid //entry id
+        formData.entry_id = entryid //entry Id
       axios
       .post('https://kap-staging.us/next-js/gravityform.php', {"form_data": formData}, config)
       .then(response => {
