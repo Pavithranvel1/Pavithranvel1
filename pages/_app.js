@@ -12,7 +12,7 @@ export default function App({ Component, pageProps, statusCode, router }) {
           posts: relayStylePagination(),
         },
       },
-    },
+    }, 
   });
 
   const client = new ApolloClient({
