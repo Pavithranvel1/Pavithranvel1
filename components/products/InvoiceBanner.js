@@ -18,7 +18,7 @@ import {
   isBrowser,
   isMobile,
 } from "react-device-detect";
-import ApplyNow from "../../components/forms/CommonShortForm";
+import ApplyNow from "../forms/CommonShortForm";
 
 export default function IndividualBanner({ data }) {
   const MobileBannerImage = data?.invoiceMobileBanner?.sourceUrl;

@@ -13,7 +13,7 @@ import {
   isBrowser,
   isMobile,
 } from "react-device-detect";
-import CommonShortForm from "../../components/forms/CommonShortForm";
+import CommonShortForm from "../forms/CommonShortForm";
 
 export default function ProductsBanner({ data }) {
   // console.log(data);

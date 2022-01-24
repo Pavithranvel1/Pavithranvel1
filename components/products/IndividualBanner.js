@@ -6,7 +6,7 @@ import ReactHtmlParser, { htmlparser2 } from "react-html-parser";
 import useSWR from "swr";
 import { request } from "graphql-request";
 import { useRouter } from "next/router";
-import Commonshortform from "../../components/forms/CommonShortForm";
+import Commonshortform from "../forms/CommonShortForm";
 import {
   bgWrap,
   bgText,
