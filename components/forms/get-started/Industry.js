@@ -103,8 +103,9 @@ export default function Industry({ formStep, setData,  data }) {
       <div className="grid justify-items-center"><h2 className="text-white center">Find the right financing product for you.</h2></div>
       <h3 className="py-3 text-2xl text-white">Find Your Financing Match</h3>
       <form name="forms" className="forms">
-        <div className={`grid grid-cols-1 md:grid-cols-3 ${error ? `gfield-error` : ``}`}>
+        <div className={`${error ? `gfield-error` : ``}`}>
           <label className={`py-6 text-xl font-bold gfield_label ${error ? `text-formred` : `text-white`}`}>My Industry is:</label>
+          <div className="grid grid-cols-1 md:grid-cols-3">
           {industries.map((industry, i) =>
             <span className="py-3" key={i}>
               <input name="industry" type="radio" defaultChecked={industry.value == gfindustry ? `checked`: (!industries.find(item => item.value.includes(gfindustry)) && gfindustry !==`` ? `checked`:``)} id={industry.id} value={industry.value} onClick={handleClick} />
@@ -112,6 +113,7 @@ export default function Industry({ formStep, setData,  data }) {
             </span>
           )}
           {error && <span className="text-formred text-xl">{error}</span>}
+          </div>
         </div>
         <div className="bg-white rounded p-2 mt-4">
           <Accordion title="Why do we need this information?" content="<div>There are financing options created to meet the specific needs of particular industries.</div>" />

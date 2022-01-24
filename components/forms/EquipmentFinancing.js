@@ -62,7 +62,7 @@ const EquipmentFinancing = ( { refill, credentials } ) => {
     requestForm.entry_id = entryid //entry id
     //requestForm[85] = window.location.href //full path embed url
     axios
-      .post('https://stagingdev-kap.com/gravityform.php', {"form_data": requestForm}, config)
+      .post('https://kap-staging.us/next-js/gravityform.php', {"form_data": requestForm}, config)
       .then(response => {
         if(response.data) {
           console.log('first -' + response.data)
@@ -147,7 +147,7 @@ const EquipmentFinancing = ( { refill, credentials } ) => {
         formData.entry_id = entryid //entry id
 
       axios
-      .post('https://stagingdev-kap.com/gravityform.php', {"form_data": formData}, config)
+      .post('https://kap-staging.us/next-js/gravityform.php', {"form_data": formData}, config)
       .then(response => {
         console.log(response)
         if(response.data !== '' && !isNaN(response.data)) {

@@ -1,4 +1,4 @@
-export default async (req, resp) => {
+export default async function handler(req, resp) {
   const {
     query: { slug },
   } = req;
@@ -9,34 +9,33 @@ export default async (req, resp) => {
           title
           uri
           ThreeColumnStaticPage {
-            cards {
-                cardContent
-                cardTitle
-                svgIcon {
-                sourceUrl
-                }
-            }
             banner {
-                bannerButton
-                bannerDescription
-                bannerTitle
-                fieldGroupName
-                bannerImage {
-                  mediaDetails {
-                    width
-                    height
-                    file
-                  }
-                  sourceUrl
+              staticBannerButton
+              staticBannerDescription
+              staticBannerTitle
+              staticMobileBannerImage {
+                sourceUrl
+                mediaDetails {
+                  width
+                  height
                 }
-                mobileBannerImage {
-                  mediaDetails {
-                    width
-                    height
-                    file
-                  }
-                  sourceUrl
+              }
+              staticBannerImage {
+                sourceUrl
+                mediaDetails {
+                  height
+                  width
                 }
+              }
+            }
+            cards {
+              staticCardTitle
+              staticCardContent
+              staticCardButton
+              staticButtonLink
+              staticSvgIcon {
+                sourceUrl
+              }
             }
             financeSolution
           }
@@ -68,4 +67,4 @@ export default async (req, resp) => {
   // console.log(json);
   resp.json(json?.data?.page);
   // }
-};
+}

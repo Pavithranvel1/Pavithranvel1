@@ -94,8 +94,6 @@ const EquipmentFastApp = ({ credentials, fieldData }) => {
     requestForm[55] = key.current.value //alpha numeric key
     const auth = Base64.btoa(`${credentials.user}:${credentials.password}`);
     let config = { headers: { 'authorization': `${auth}` } }
-    console.log(requestForm)
-    console.log(signature)
     axios
       //.post('https://stagingdev-kap.com/gravityform.php', {"formData": requestForm},'fileData': multipleFiles, 'signature': signature}, config)
       .post('https://stagingdev-kap.com/nextjs/applynow.php', {"formData": requestForm, 'fileData': multipleFiles, 'signature': signature}, config)

@@ -75,7 +75,7 @@ export default function Banner({ data }) {
             <div className="xs:grid col-auto lg:grid grid-cols-2 gap-1 p-3">
               <div className="text-kapitus mb-10">
                 <div className="xs:w-full text-3xl md:text-5xl">
-                  {data?.bannerTitle}
+                  {data?.aboutTitle}
                 </div>
                 <div className="text-sm md:text-xl lg:text-2xl my-10">
                   {ReactHtmlParser(data?.bannerDescription)}

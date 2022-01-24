@@ -37,7 +37,9 @@ const Footer = () => {
                   </div>
                   <div className="lg:w-1/4 md:w-1/2 w-full px-4">
                     <h2 className="title-font font-medium text-kapitus tracking-widest text-sm mb-3">
-                      PRODUCTS
+                      <Link href="/products-we-offer" passHref>
+                        PRODUCTS
+                      </Link>
                     </h2>
                     <nav className="list-none mb-10">
                       {productMenus.map((value, index) => (

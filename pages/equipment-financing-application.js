@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from 'axios';
 import { formVariants } from "../components/card/variants";
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion';

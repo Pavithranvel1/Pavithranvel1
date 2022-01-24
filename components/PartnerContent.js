@@ -49,11 +49,11 @@ const Content = ({ data }) => {
                   )}`}
                 />
               </div>
-              <h2 className="text-xl font-semibold text-center my-10">
+              <h2 className="text-xl font-semibold text-center text-kapitus my-5">
                 {ReactHtmlParser(value?.cardTitle)}
               </h2>
-              <div className="place-items-center">
-                <div className="mb-4 p-5">
+              <div className="text-center place-items-center">
+                <div className="mb-4 px-5">
                   {ReactHtmlParser(value?.cardContent)}
                 </div>
               </div>

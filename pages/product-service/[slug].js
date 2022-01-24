@@ -79,14 +79,12 @@ const Productservices = (props) => {
   const animation = useAnimation();
   const animation1 = useAnimation();
 
-  const productname = slug ? slug : ''
-
   useEffect(() => {
     localStorage.removeItem('gfshortform')
     setName(() => {
       return slug.replaceAll('-',' ')
     })
-  }, [])
+  }, [slug])
 
   useEffect(() => {
     setTimeout(function(){
@@ -125,7 +123,7 @@ const Productservices = (props) => {
         }
       }
     }
-  }, [snapPoint]);
+  }, [snapPoint, router]);
 
    useEffect(() => {
     const route = router.query
@@ -345,8 +343,7 @@ const Productservices = (props) => {
           <div key="lottie3" className="float-right w-1/3 xs:w-1/6 md:w-1/6 lottie h-36" ref={lottieimage}></div>
         </div>
       </AppBar>
- 
-      <div className="pb-10 overflow-y-auto content" style={{ height: '500px'}}>
+      <div className="pb-32 overflow-y-auto content" style={{ height: '500px'}}>
       <SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'} index={value} onChangeIndex={handleChangeIndex}>
         <TabPanel value={value} index={0} dir={theme.direction}>
           <div><h3 className="text-kapitus font-bold ">Who Should Use A Business Loan?</h3><p className="text-xl mb-5">Qualifying for a business loan through Kapitus is easier than you think! Depending on the amount you are looking to secure, there are minimum criteria that you must meet (perfect credit not required!), including:</p><ul className="py-4 list-disc htitle"><li className="text-lg">YOU MUST HAVE A PERSONAL CREDIT SCORE OF AT LEAST 625.</li><li className="text-lg">YOUR BUSINESS NEEDS TO HAVE BEEN OPERATING FOR AT LEAST TWO YEARS.</li><li className="text-lg">YOU NEED TO HAVE A MINIMUM OF $250,000 IN ANNUAL REVENUE.</li></ul><p className="text-xl">Kapitus financing products vary by state, so business loans may not be available to everyone. Not to worry! We have a product for every business in every state. Please contact a Kapitus Financing Specialist to discuss your particular circumstances.</p></div>

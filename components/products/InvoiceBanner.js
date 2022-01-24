@@ -18,7 +18,7 @@ import {
   isBrowser,
   isMobile,
 } from "react-device-detect";
-import ApplyNow from "../../components/forms/applynow";
+import ApplyNow from "../../components/forms/CommonShortForm";
 
 export default function IndividualBanner({ data }) {
   const MobileBannerImage = data?.invoiceMobileBanner?.sourceUrl;
@@ -74,7 +74,8 @@ export default function IndividualBanner({ data }) {
                   alt=""
                   src={BannerImg}
                   width={data?.bannerImage?.mediaDetails?.width}
-                  height={data?.bannerImage?.mediaDetails?.height}
+                  // height={data?.bannerImage?.mediaDetails?.height}
+                  height={1150}
                   layout="responsive"
                   objectFit="cover"
                   quality={100}

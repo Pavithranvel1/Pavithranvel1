@@ -35,10 +35,10 @@ export default function Banner({ data }) {
       <section className="relative">
         <div className="opacity-40">
           <div className={heroDesktopImage}>
-            {data?.bannerImage?.sourceUrl?.length > 0 && (
+            {data?.staticBannerImage?.sourceUrl?.length > 0 && (
               <Image
-                src={data?.bannerImage?.sourceUrl}
-                width={data?.bannerImage?.mediaDetails?.width}
+                src={data?.staticBannerImage?.sourceUrl}
+                width={data?.staticBannerImage?.mediaDetails?.width}
                 // height={data?.bannerImage?.mediaDetails?.height}
                 height={550}
                 layout="intrinsic"
@@ -53,9 +53,9 @@ export default function Banner({ data }) {
             )}
           </div>
           <div className={heroMobileImage}>
-            {data?.mobileBannerImage?.sourceUrl?.length > 0 && (
+            {data?.staticMobileBannerImage?.sourceUrl?.length > 0 && (
               <Image
-                src={data?.mobileBannerImage?.sourceUrl}
+                src={data?.staticMobileBannerImage?.sourceUrl}
                 width={500}
                 height={750}
                 layout="intrinsic"
@@ -75,13 +75,13 @@ export default function Banner({ data }) {
             <div className="xs:grid col-auto lg:grid grid-cols-2 gap-1 p-3">
               <div className="text-kapitus mb-10">
                 <div className="xs:w-full text-3xl md:text-5xl">
-                  {data?.bannerTitle}
+                  {data?.staticBannerTitle}
                 </div>
-                <div className="text-sm md:text-xl lg:text-2xl my-10">
-                  {ReactHtmlParser(data?.bannerDescription)}
+                <div className="text-sm md:text-xl lg:text-2xl text-descGreen my-10">
+                  {ReactHtmlParser(data?.staticBannerDescription)}
                 </div>
-                <div className="xs:text-xs sm:text-lg mt-5 md:text-2xl text-kapitus">
-                  {ReactHtmlParser(data?.bannerButton)}
+                <div className="xs:text-xs sm:text-lg mt-5 md:text-xl text-kapitus">
+                  {ReactHtmlParser(data?.staticBannerButton)}
                 </div>
               </div>
 

@@ -38,7 +38,7 @@ export default function PartnerPage() {
 
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
-
+  console.log(data?.PartnerACF?.threeColumn);
   return (
     <>
       <Header />
@@ -49,14 +49,17 @@ export default function PartnerPage() {
             <Content data={data?.PartnerACF?.threeColumn} />
           </div>
         </div>
-        <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto text-center">
+        <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto">
+          <hr className="w-11/12" />
+        </div>
+        <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto text-center rightPartner">
           {ReactHtmlParser(data?.PartnerACF?.rightPartnershipForYou)}
         </div>
         <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto">
           <hr className="w-11/12" />
         </div>
         <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto">
-          <div className="my-10  text-4xl">How it Works</div>
+          <div className="my-10 text-kapitus text-2xl">How it Works</div>
           {data?.PartnerACF?.howItWorks.map((value, key) => (
             <div className="xs:w-full md:w-1/4 float-left mb-20" key={key}>
               <div className="text-center">
@@ -67,20 +70,29 @@ export default function PartnerPage() {
                   alt=""
                 />
               </div>
-              <div className="text-center text-3xl text-blue-800">
+              <div className="text-center text-2xl text-kapitus">
                 {value?.title}
               </div>
             </div>
           ))}
         </div>
+        <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto">
+          <hr className="w-11/12" />
+        </div>
         <div className="xs:w-full container px-5 my-20 mx-auto">
           {ReactHtmlParser(data?.PartnerACF?.joinToday)}
-          <div>
-            <button>SIGN UP</button>
-          </div>
+          {asPath == "/partner/referral-partners" ? (
+            <div></div>
+          ) : (
+            <div>
+              <button>SIGN UP</button>
+            </div>
+          )}
         </div>
       </div>
-      <div ref={observe}>{inView && <Footer />}</div>
+      <div>
+        <Footer />
+      </div>
     </>
   );
 }

@@ -21,9 +21,12 @@ const Footer = dynamic(() => import("../components/Footer"), {
 export default function Contant() {
   const { asPath, pathname } = useRouter();
   const { observe, inView } = useInView({
-    onEnter: ({ unobserve }) => unobserve(), // only run once
-    onLeave: ({ observe }) => observe(),
+    // Stop observe when the target enters the viewport, so the "inView" only triggered once
+    unobserveOnEnter: true,
+    // For better UX, we can grow the root margin so the image will be loaded before it comes to the viewport
+    rootMargin: "50px",
   });
+
 
   const { data, error } = useSWR(`/api/page/${asPath}`, fetcher);
 
@@ -31,19 +34,16 @@ export default function Contant() {
   if (!data) return <div>loading...</div>;
 
   const BannerData = data?.ThreeColumnStaticPage?.banner;
-
   return (
     <>
       <Header />
       <Banner data={BannerData} />
-      <div>
-        <div className="py-10 px-5">
-          <div ref={observe}>
-            {inView && <Content data={data?.ThreeColumnStaticPage?.cards} />}
-          </div>
+      <div className="py-10 px-5">
+        <div ref={observe}>
+          {inView && <Content data={data?.ThreeColumnStaticPage?.cards} />}
         </div>
       </div>
-      <div ref={observe} className="float-left clear-both w-full">
+      <section ref={observe} className="w-full">
         <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto">
           <div className="container">
             <div className="xs:grid-cols-1 md:grid grid-cols-2 gap-4">
@@ -67,15 +67,15 @@ export default function Contant() {
             </div>
           </div>
         </div>
-      </div>
-      <div ref={observe}>
+      </section>
+      <section ref={observe}>
         {inView && (
           <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto">
-            {ReactHtmlParser(data?.ThreeColumnStaticPage?.financeSolution)}
+            {/* {ReactHtmlParser(data?.ThreeColumnStaticPage?.financeSolution)} */}
           </div>
         )}
-      </div>
-      <div ref={observe}>{inView && <Footer />}</div>
+      </section>
+      <section ref={observe}>{inView && <Footer />}</section>
     </>
   );
 }

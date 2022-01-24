@@ -75,8 +75,9 @@ export default function Mybusiness({ formStep, setData, data  }) {
       </div>)}
       <h3 className="py-3 text-2xl text-white">Find Your Financing Match</h3>
       <form name="forms" className="forms">
-        <div className={`grid grid-cols-1 md:grid-cols-2 ${error ? `gfield-error` : ``}`}>
+        <div className={`${error ? `gfield-error` : ``}`}>
           <label className={`py-3 text-xl font-bold gfield_label ${error ? `text-formred` : `text-white`}`}>I need financing for my business:</label>
+          <div className="grid grid-cols-1 md:grid-cols-3">
           {mybusiness.map((business, i) =>
             <span className="py-3" key={i}>
               <input name="business" type="radio" defaultChecked={business.value == gfbusiness ? `checked`: ``} id={business.id} value={business.value} onClick={handleClick} />
@@ -84,6 +85,7 @@ export default function Mybusiness({ formStep, setData, data  }) {
             </span>
           )}
           {error && <span className="text-formred text-xl">{error}</span>}
+        </div>
         </div>
         <div className="bg-white rounded p-2 mt-4">
           <Accordion title="Why do we need this information?" content="<div>Each financing product offers different payback lengths and terms.</div>" />

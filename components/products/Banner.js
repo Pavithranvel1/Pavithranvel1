@@ -13,7 +13,7 @@ import {
   isBrowser,
   isMobile,
 } from "react-device-detect";
-import ApplyNow from "../../components/forms/applynow";
+import CommonShortForm from "../../components/forms/CommonShortForm";
 
 export default function ProductsBanner({ data }) {
   // console.log(data);
@@ -49,8 +49,8 @@ export default function ProductsBanner({ data }) {
               <Image
                 src={data?.pageBanner?.sourceUrl}
                 width={data?.pageBanner?.mediaDetails?.width}
-                height={data?.pageBanner?.mediaDetails?.height}
-                // height={850}
+                // height={data?.pageBanner?.mediaDetails?.height}
+                height={1150}
                 layout="responsive"
                 objectFit="cover"
                 quality={100}
@@ -106,8 +106,8 @@ export default function ProductsBanner({ data }) {
                 </div>
               </div>
 
-              <div className="xs: hidden sm:hidden md:block ">
-                <ApplyNow />
+              <div className="xs: hidden sm: hidden md:block ">
+                <CommonShortForm />
               </div>
             </div>
           </div>

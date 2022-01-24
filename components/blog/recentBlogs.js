@@ -36,7 +36,7 @@ const RecentBlogs = () => {
             <div key={key}>
               <Link href={`/blog/${post.slug}`} passHref>
                 <div
-                  className="mt-2 text-lg text-kapitus cursor-pointer italic"
+                  className="mt-2 text-lg text-kapitus cursor-pointer italic blogsLink"
                   title={post.title}
                 >
                   {post.title}

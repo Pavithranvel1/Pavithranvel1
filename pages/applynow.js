@@ -10,8 +10,8 @@ export default function Applynow(props) {
 
   useEffect(() => {
     setTimeout(() => {
-      setTrigger(true)
-      document.body.style.overflowY='hidden'
+      //setTrigger(true)
+      //document.body.style.overflowY='hidden'
     }, 5000)
   }, [trigger])
 

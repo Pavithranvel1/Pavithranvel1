@@ -1,4 +1,4 @@
-export default async (req, resp) => {
+export default async function handler(req, resp) {
   const {
     query: { slug },
   } = req;
@@ -16,6 +16,13 @@ export default async (req, resp) => {
               height
             }
             mediaItemUrl
+          }
+          mobileImage {
+            mediaDetails {
+              width
+              height
+            }
+            sourceUrl
           }
         }
       }
@@ -40,4 +47,4 @@ export default async (req, resp) => {
   // console.log(json);
   resp.json(json?.data?.page);
   // }
-};
+}

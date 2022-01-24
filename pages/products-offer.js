@@ -46,7 +46,7 @@ export default function ProductOffer() {
       </div>
       <motion.div className="grid grid-cols-2 gap-4">
       {["business-loans", "equipment-financing", "helix-healthcare-financing", "invoice-factoring", "line-of-credit", "purchase-order-financing", "revenue-based-financing", "sba-loan"].map((product, index) => (
-        <Link href={`product-we-offer/${product}`} as={`product-we-offer/${product}`} key={index}>
+        <Link href={`product-we-offer/${product}`} as={`product-we-offer/${product}`} key={index} passHref={true}>
           <motion.div className="relative">
           <motion.img
           layoutId={product}

@@ -1,4 +1,4 @@
-export default async (req, resp) => {
+export default async function handler(req, resp) {
   const {
     query: { slug },
   } = req;
@@ -6,41 +6,40 @@ export default async (req, resp) => {
   const QUERY_SINGLE_POST = `
     query SinglePage($id: ID!) {
         page(idType: URI, id: $id) {
-            PartnerACF {
-                bannerImage {
-                    mediaDetails {
-                    width
-                    height
-                    }
-                    sourceUrl
-                }
-                mobileBanner {
-                    mediaDetails {
-                    height
-                    width
-                    }
-                    sourceUrl
-                }
-                bannerTitle
-                bannerDescription
-                bannerButton
-                threeColumn {
-                    cardContent
-                    cardTitle
-                    svgIcon {
-                    sourceUrl
-                    }
-                }
-                rightPartnershipForYou
-                howItWorks {
-                    svgIcon {
-                    sourceUrl
-                    }
-                    title
-                }
-                joinToday
-                
-                }
+          PartnerACF {
+            staticBannerButton
+            staticBannerDescription
+            staticBannerTitle
+            staticBannerImage {
+              sourceUrl
+              mediaDetails {
+                height
+                width
+              }
+            }
+            howItWorks {
+              title
+              svgIcon {
+                sourceUrl
+              }
+            }
+            staticMobileBannerImage {
+              sourceUrl
+              mediaDetails {
+                height
+                width
+              }
+            }
+            threeColumn {
+              cardTitle
+              cardContent
+              svgIcon {
+                sourceUrl
+              }
+            }
+            joinToday
+            rightPartnershipForYou
+          }
         }
     }`;
 
@@ -63,4 +62,4 @@ export default async (req, resp) => {
   // console.log(json);
   resp.json(json?.data?.page);
   // }
-};
+}

@@ -6,38 +6,31 @@ export default async function handler(req, resp) {
   const QUERY_SUCCESS_STORIES = `
     query SuccessStories($id: ID!) {
         page(idType: URI, id: $id) {
-          successStoriesACF {
-            pageLargeSlider {
-              sliderContent
-              sliderImage {
-                sourceUrl
-                sizes(size: LARGE)
-                mediaDetails {
-                  height
-                  width
+          title
+          uri
+          ThreeColumnStaticPage {
+              banner {
+                staticBannerButton
+                staticBannerDescription
+                staticBannerTitle
+                staticMobileBannerImage {
+                  sourceUrl
+                  mediaDetails {
+                    width
+                    height
+                  }
+                }
+                staticBannerImage {
+                  sourceUrl
+                  mediaDetails {
+                    height
+                    width
+                  }
                 }
               }
-            }
-            suggestedResources {
-              svgIcon {
-                sourceUrl
-              }
-              link
-              resourceContent
-            } 
-            carouselSlider {
-              carouselContent
-              carouselImage {
-                sourceUrl
-                mediaDetails {
-                  height
-                  width
-                }
-              }
-            }
-            footerContent
-            
+            financeSolution
           }
+          
         }
     }`;
 
@@ -47,7 +40,7 @@ export default async function handler(req, resp) {
     body: JSON.stringify({
       query: QUERY_SUCCESS_STORIES,
       variables: {
-        id: "success-stories",
+        id: "kapitus-difference",
       },
     }),
   });

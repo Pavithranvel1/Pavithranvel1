@@ -93,15 +93,14 @@ export default function Loan({ formStep, setData,  data }) {
     <AnimatePresence>
     {showMe && (
       <motion.div initial="initial" animate="animate" exit="exit" variants={transVariants} style={{height: '720px'}}>
-      {error && (<div className="text-white font-base font-bold mb-5 border-2 border-formred rounded py-2 px-2">
-        <span className="text-base font-bold">
+      {error && (<div className="text-white font-base font-bold mb-5 border-2 border-formred rounded py-2 px-2"><span className="text-base font-bold">
         There was a problem with your submission. Please review the fields below.</span>
       </div>)}
       <h3 className="py-3 text-2xl text-white">Find Your Financing Match</h3>
       <form name="forms" className="forms">
-        <div className={`grid grid-cols-1 md:grid-cols-2 ${error && lender == null ? `gfield-error` : ``}`}>
+        <div className={`${error && lender == null ? `gfield-error` : ``}`}>
           <label className={`py-6 text-xl font-bold gfield_label ${error && lender == null ? `text-formred` : `text-white`}`}>Do you have an existing loan?</label>
-          <div className="py-3">
+          <div className="py-3 grid grid-cols-1 md:grid-cols-3">
             <div className="py-2">
             <input name="loan" type="radio" id="choice_yes" value="Yes" onClick={handleClick} defaultChecked={gfloan == 'Yes' ? `checked`: ``} />
             <label htmlFor="choice_yes" className={`ml-6 ${error && lender == null ? `text-formred` : `text-white`}`}>Yes</label>

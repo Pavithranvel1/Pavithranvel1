@@ -1,4 +1,4 @@
-export default async (req, resp) => {
+export default async function handler(req, resp) {
   const {
     query: { slug },
   } = req;
@@ -16,24 +16,22 @@ export default async (req, resp) => {
           title
           ThreeColumnStaticPage {
             banner {
-              bannerButton
-              bannerDescription
-              bannerTitle
-              bannerImage {
+              staticBannerButton
+              staticBannerDescription
+              staticBannerTitle
+              staticMobileBannerImage {
+                sourceUrl
                 mediaDetails {
                   width
                   height
-                  file
                 }
-                sourceUrl
               }
-              mobileBannerImage {
-                mediaDetails {
-                  width
-                  height
-                  file
-                }
+              staticBannerImage {
                 sourceUrl
+                mediaDetails {
+                  height
+                  width
+                }
               }
             }
           }
@@ -56,4 +54,4 @@ export default async (req, resp) => {
   const json = await data.json();
   // console.log(json);
   resp.json(json.data);
-};
+}

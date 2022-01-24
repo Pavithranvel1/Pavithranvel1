@@ -181,7 +181,7 @@ export default function ConfirmPurchase({ formStep, setData, data }) {
     {showMe && (
       <motion.div initial="initial" animate="animate" exit="exit" variants={transVariants}>
       {Object.keys(error2).length > 0 && (<div className="text-white font-base font-bold mb-5 border-2 border-formred rounded py-2 px-2">
-        <span className="text-base font-bold">
+        <span className="text-base font-bold text-white">
         There was a problem with your submission. Please review the fields below.</span>
       </div>)}
       <div className="grid justify-items-center"><h3 className="text-white text-2xl py-4">We`re finding your match</h3></div>

@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import useInView from "react-cool-inview";
 import dynamic from "next/dynamic";
@@ -6,6 +7,9 @@ import useSWR from "swr";
 import Header from "../../components/Header";
 import ProductBanner from "../../components/products/IndividualBanner";
 import Content from "../../components/products/Content";
+import { useMediaQuery } from "react-responsive";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -86,9 +90,36 @@ export default function ProductPage() {
   const { data, error } = useSWR(`/api/page/${asPath}`, fetcher);
 
   const { observe, inView } = useInView({
-    onEnter: ({ unobserve }) => unobserve(), // only run once
-    onLeave: ({ observe }) => observe(),
+    // Stop observe when the target enters the viewport, so the "inView" only triggered once
+    unobserveOnEnter: true,
+    // For better UX, we can grow the root margin so the image will be loaded before it comes to the viewport
+    rootMargin: "50px",
   });
+
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 1,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 1,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+
+  const isBigScreen = useMediaQuery({ query: "(min-width: 1824px)" });
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+  const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
+  const isRetina = useMediaQuery({ query: "(min-resolution: 2dppx)" });
 
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
@@ -114,36 +145,90 @@ export default function ProductPage() {
           <title>Products We Offer</title>
         </Head>
         <Header />
-        <div className="w-full">
-          <div className="w-full">
-            <ProductBanner data={IndividualBanner} />
-          </div>
-
-          <div className="xs:w-full" ref={observe}>
-            <Content content={ProductContent} desc={ProductDescription} />
-          </div>
-          <div className="container">
-            <div className="xs:w-full md:w-11/12 ">
-              <Requirements data={RequirementsData} />
+        <section className="w-full">
+          <section className="productSticky ">
+            <div className="container">
+              <div className="ml-5">
+                <span className="xs:p-2 text-pink md:pr-10 ">
+                  <a href="#Requirement"> Requirements</a>
+                </span>
+                <span className="xs:p-2 text-pink md:pr-10">
+                  <a href="#HowApply"> How To Apply</a>
+                </span>
+                <span className="xs:p-2 text-pink md:pr-10">
+                  <a href="#Who"> Who is this For?</a>
+                </span>
+              </div>
             </div>
-            <div className="xs:w-full md:w-11/12 ">
-              <How data={HowToApply} />
-            </div>
-            <div className="xs:w-full md:w-11/12 ">
-              <Who data={WhoShould} />
-            </div>
-          </div>
-          <div className="w-full">
-            <GroupColumn />
-          </div>
-          <div className="container">
-            <FAQ />
-          </div>
-          <section className="container my-10">
-            <ProductsBlogs data={data} />
           </section>
-          <section className="w-full">{inView && <Footer />}</section>
-        </div>
+          {isTabletOrMobile && (
+            <section className="w-full bg-kapitus">
+              <div className="container">
+                <div className="ml-5 p-5">
+                  <Carousel
+                    swipeable={true}
+                    draggable={true}
+                    showDots={false}
+                    responsive={responsive}
+                    ssr={true} // means to render carousel on server-side.
+                    infinite={true}
+                    keyBoardControl={true}
+                    transitionDuration={800}
+                    containerClass="carousel-container"
+                    itemClass="carousel-item-padding-40-px"
+                    autoPlay={false}
+                    arrows={true}
+                    removeArrowOnDeviceType={["tablet", "mobile"]}
+                  >
+                    <span className="xs:p-2 text-pink md:pr-10 ">
+                      <Link href="/products-services/business-loans">
+                        Business Loans
+                      </Link>
+                    </span>
+                    <span className="xs:p-2 text-pink md:pr-10 ">
+                      <Link href="/products-services/equipment-financing">
+                        Equipment Financing
+                      </Link>
+                    </span>
+                  </Carousel>
+                </div>
+              </div>
+            </section>
+          )}
+          <section className="w-full">
+            <ProductBanner data={IndividualBanner} />
+          </section>
+
+          <section ref={observe}>
+            {inView && (
+              <Content content={ProductContent} desc={ProductDescription} />
+            )}
+          </section>
+
+          <div className="container">
+            <div className="xs:w-full md:w-9/12 " ref={observe}>
+              {inView && <Requirements data={RequirementsData} />}
+            </div>
+            <div className="xs:w-full md:w-9/12 " ref={observe}>
+              {inView && <How data={HowToApply} />}
+            </div>
+            <div className="xs:w-full md:w-9/12" ref={observe}>
+              {inView && <Who data={WhoShould} />}
+            </div>
+          </div>
+          <div className="xs:w-full md:w-9/12" ref={observe}>
+            {inView && <GroupColumn />}
+          </div>
+          <div className="container" ref={observe}>
+            {inView && <FAQ />}
+          </div>
+          <section className="container my-10" ref={observe}>
+            {inView && <ProductsBlogs data={data} />}
+          </section>
+          <section className="w-full" ref={observe}>
+            {inView && <Footer />}
+          </section>
+        </section>
       </>
     );
   } else {

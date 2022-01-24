@@ -9,7 +9,7 @@ export default function FormCard({ children, currentStep }) {
   let step = ['TELL US ABOUT YOU', 'TELL US about your company', 'Pick your partnership program', 'Tell us how we can reach you']
   
   const handleClick = () => {
-    localStorage.setItem('reload', true)
+    localStorage.setItem('reload-partner', true)
     setShowMe(!showMe)
     setTimeout(() => {
       router.push('/')

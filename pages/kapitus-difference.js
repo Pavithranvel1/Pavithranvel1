@@ -2,12 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import Header from "../components/Header";
 import Banner from "../components/Banner";
+import Content from "../components/Content";
+import Accordion from "../components/Accordion";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import useInView from "react-cool-inview";
 import dynamic from "next/dynamic";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
 import ReactHtmlParser from "react-html-parser";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -18,9 +18,8 @@ const Footer = dynamic(() => import("../components/Footer"), {
   },
   ssr: false,
 });
-export default function Media() {
+export default function Contant() {
   const { asPath, pathname } = useRouter();
-
   const { observe, inView } = useInView({
     // Stop observe when the target enters the viewport, so the "inView" only triggered once
     unobserveOnEnter: true,
@@ -32,26 +31,27 @@ export default function Media() {
 
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
-  // alert(data?.events?.bannerImage);
+
+  const BannerData = data?.ThreeColumnStaticPage?.banner;
+
   return (
     <>
       <Header />
-      <Banner data={data?.events?.banner} />
-      <div className="bg-white my-10">
-        <div ref={observe} className="mx-10">
-          <Tabs>
-            <TabList>
-              {data?.events?.eventDetails.map((value, key) => (
-                <Tab key={key}>{value?.eventTitle}</Tab>
-              ))}
-            </TabList>
-            {data?.events?.eventDetails.map((value, key) => (
-              <TabPanel key={key} className="react-tabs__tab-panel p-5">
-                {ReactHtmlParser(value?.events)}
-              </TabPanel>
-            ))}
-          </Tabs>
+      <Banner data={BannerData} />
+      <div>
+        <div className="py-10 px-5">
+          <div ref={observe}>
+            {inView && <Content data={data?.ThreeColumnStaticPage?.cards} />}
+          </div>
         </div>
+      </div>
+
+      <div ref={observe}>
+        {inView && (
+          <div className="xs:w-full container px-5 mt-10 mb-10 mx-auto">
+            {ReactHtmlParser(data?.ThreeColumnStaticPage?.financeSolution)}
+          </div>
+        )}
       </div>
       <div ref={observe}>{inView && <Footer />}</div>
     </>

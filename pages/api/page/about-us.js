@@ -1,4 +1,4 @@
-export default async (req, resp) => {
+export default async function handler(req, resp) {
   const {
     query: { slug },
   } = req;
@@ -7,7 +7,7 @@ export default async (req, resp) => {
         page(idType: URI, id: $id) {
           aboutUs {
             aboutDescription
-            bannerTitle
+            aboutTitle
             bannerImage {
                 sourceUrl
                 mediaDetails {
@@ -66,4 +66,4 @@ export default async (req, resp) => {
   // console.log(json);
   resp.json(json?.data?.page);
   // }
-};
+}

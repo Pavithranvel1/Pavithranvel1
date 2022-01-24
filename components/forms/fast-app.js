@@ -129,7 +129,7 @@ export default function Applynow({ credentials, fieldData }) {
     const auth = Base64.btoa(`${credentials.user}:${credentials.password}`);
     let config = { headers: { 'authorization': `${auth}` } }
     axios
-    .post('https://stagingdev-kap.com/nextjs/applynow.php', {"formData": requestForm, 'fileData': multipleFiles, 'signature': signature}, config)
+    .post('https://kap-staging.us/next-js/applynow.php', {"formData": requestForm, 'fileData': multipleFiles, 'signature': signature}, config)
     .then(response => {
       console.log(response)
       router.push('/fast-application-thank-you')

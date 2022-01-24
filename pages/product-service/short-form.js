@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from "next/router";
-import Commonshortform from "../../components/forms/Commonshortform"
+import Commonshortform from "../../components/forms/CommonShortForm"
 import InvoiceFactor from "../../components/forms/InvoiceFactor"
 import EquipmentFinancing from "../../components/forms/EquipmentFinancing"
 import { invoiceId, equipmentId, formId } from '../../components/variables/data'

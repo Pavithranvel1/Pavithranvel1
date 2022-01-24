@@ -1,4 +1,5 @@
 import Head from "next/head";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import Script from "next/script";
@@ -12,11 +13,11 @@ import {
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import useInView from "react-cool-inview";
+import Link from "next/link";
 
 import Header from "../components/Header";
 import Banner from "../components/Banner";
-import CookieConsent from 'react-cookie-consent'
-
+let localdata = ['gfproduct', 'gffund', 'gfindustry', 'gfmonth', 'gfyear', 'gfcheckbox', 'gfrevenue', 'gfrepayment', 'gfbusiness', 'gfloan', 'gflender', 'gfcreditscore', 'gfpersonalinfo']
 const Footer = dynamic(() => import("../components/Footer"), {
   loading: function ld() {
     return <p>Loading...</p>;
@@ -26,7 +27,10 @@ const Footer = dynamic(() => import("../components/Footer"), {
 
 export default function Home() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  const { data, error } = useSWR("/api/page/home", fetcher);
+
+  const { data, error } = useSWR("/api/page/home", fetcher, {
+    revalidateOnMount: true,
+  });
 
   let { asPath, pathname } = useRouter();
   const router = useRouter();
@@ -51,13 +55,19 @@ export default function Home() {
   </svg>`;
 
   const { observe, inView } = useInView({
-    onEnter: ({ unobserve }) => unobserve(), // only run once
-    onLeave: ({ observe }) => observe(),
+    // Stop observe when the target enters the viewport, so the "inView" only triggered once
+    unobserveOnEnter: true,
+    // For better UX, we can grow the root margin so the image will be loaded before it comes to the viewport
+    rootMargin: "50px",
   });
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
 
-  const BannerData = data?.page?.ThreeColumnStaticPage?.banner;
+  useEffect(() => {
+    if(!localStorage.getItem('reload')){
+      localdata.map((item, i) => localStorage.removeItem(item))
+      localStorage.removeItem('formstep')
+    }
+    localStorage.removeItem('reload')
+  }, [])
 
   const openForm = (event) => {
     setTimeout(function(){
@@ -67,24 +77,28 @@ export default function Home() {
     }, 700)
   }
 
+  if (error) return <div>failed to load</div>;
+  if (!data) return <div>loading...</div>;
+
   return (
     <>
       <Header />
+      {/* Banner Section Start */}
       <section className="relative">
         <div className="opacity-40">
           <div className={heroDesktopImage}>
-            {data?.page?.ThreeColumnStaticPage?.banner?.bannerImage?.sourceUrl
-              ?.length > 0 && (
+            {data?.page?.ThreeColumnStaticPage?.banner?.staticBannerImage
+              ?.sourceUrl?.length > 0 && (
               <Image
                 src={
-                  data?.page?.ThreeColumnStaticPage?.banner?.bannerImage
+                  data?.page?.ThreeColumnStaticPage?.banner?.staticBannerImage
                     ?.sourceUrl
                 }
                 width={
-                  data?.page?.ThreeColumnStaticPage?.banner?.bannerImage
+                  data?.page?.ThreeColumnStaticPage?.banner?.staticBannerImage
                     ?.mediaDetails?.width
                 }
-                // height={data?.bannerImage?.mediaDetails?.height}
+                // height={data?.staticBannerImage?.mediaDetails?.height}
                 height={350}
                 layout="intrinsic"
                 objectFit="cover"
@@ -98,15 +112,15 @@ export default function Home() {
             )}
           </div>
           <div className={heroMobileImage}>
-            {data?.page?.ThreeColumnStaticPage?.banner?.mobileBannerImage
+            {data?.page?.ThreeColumnStaticPage?.banner?.staticMobileBannerImage
               ?.sourceUrl?.length > 0 && (
               <Image
                 src={
-                  data?.page?.ThreeColumnStaticPage?.banner?.mobileBannerImage
-                    ?.sourceUrl
+                  data?.page?.ThreeColumnStaticPage?.banner
+                    ?.staticMobileBannerImage?.sourceUrl
                 }
                 width={500}
-                height={450}
+                height={750}
                 layout="intrinsic"
                 objectFit="cover"
                 quality={100}
@@ -124,16 +138,18 @@ export default function Home() {
             <div className="xs:grid col-auto lg:grid grid-cols-2 gap-1 p-3">
               <div className="text-kapitus mb-10">
                 <div className="xs:w-full text-3xl md:text-5xl">
-                  {data?.page?.ThreeColumnStaticPage?.banner?.bannerTitle}
+                  {data?.page?.ThreeColumnStaticPage?.banner?.staticBannerTitle}
                 </div>
                 <div className="text-sm md:text-xl lg:text-2xl my-10">
                   {ReactHtmlParser(
-                    data?.page?.ThreeColumnStaticPage?.banner?.bannerDescription
+                    data?.page?.ThreeColumnStaticPage?.banner
+                      ?.staticBannerDescription
                   )}
                 </div>
                 <div className="xs:text-xs sm:text-lg mt-5 md:text-2xl text-kapitus" onClick={openForm}>
                   {ReactHtmlParser(
-                    data?.page?.ThreeColumnStaticPage?.banner?.bannerButton
+                    data?.page?.ThreeColumnStaticPage?.banner
+                      ?.staticBannerButton
                   )}
                 </div>
               </div>
@@ -143,100 +159,112 @@ export default function Home() {
           </div>
         </div>
       </section>
+      {/* Banner Section End */}
+
       <section className="container" ref={observe}>
         {inView && (
           <script
             defer
-            lazyOnload
+            lazyonload="true"
             src="https://cdn.trustindex.io/loader.js?09a5ee4135268498715860a5eb"
           ></script>
         )}
       </section>
+      {/* Three Card Section */}
       <section ref={observe}>
-        {/* <div className="xs:w-full">
-          {inView && (
-            <Content data={data?.page?.ThreeColumnStaticPage?.cards} />
-          )}
-        </div> */}
-        <div className="container my-10" ref={observe}>
-          {inView && (
+        {inView && (
+          <div className="container my-10">
             <section className="grid gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
               <div className="shadow-md rounded-md overflow-hidden dark:bg-red-100 dark:text-black">
                 <div className="grid place-items-center w-full text-right">
-                  <Image
-                    src="/The-Kapitus-Difference.svg"
-                    width="100"
-                    height="100"
-                    alt=""
-                    layout="intrinsic"
-                    objectFit="cover"
-                    quality={100}
-                    placeholder="blur"
-                    blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                      shimmer(700, 475)
-                    )}`}
-                  />
+                  <Link href="/kapitus-difference" passHref>
+                    <Image
+                      src="/The-Kapitus-Difference.svg"
+                      width="100"
+                      height="100"
+                      alt=""
+                      layout="intrinsic"
+                      objectFit="cover"
+                      quality={100}
+                      placeholder="blur"
+                      blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                        shimmer(700, 475)
+                      )}`}
+                      className="cursor-pointer"
+                    />
+                  </Link>
                 </div>
-                <h4 className="font-semibold text-center my-10 uppercase text-kapitus">
-                  THE KAPITUS DIFFERENCE
+
+                <h4 className="font-semibold text-center my-10 uppercase text-kapitus cursor-pointer">
+                  <Link href="/kapitus-difference" passHref>
+                    THE KAPITUS DIFFERENCE
+                  </Link>
                 </h4>
               </div>
               <div className="shadow-md rounded-md overflow-hidden dark:bg-red-100 dark:text-black">
                 <div className="grid place-items-center w-full text-right">
-                  <Image
-                    src="/Success-On-Every-Corner.svg"
-                    width="100"
-                    height="100"
-                    alt=""
-                    layout="intrinsic"
-                    objectFit="cover"
-                    quality={100}
-                    placeholder="blur"
-                    blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                      shimmer(700, 475)
-                    )}`}
-                  />
+                  <Link href="/success-stories" passHref>
+                    <Image
+                      src="/Success-On-Every-Corner.svg"
+                      width="100"
+                      height="100"
+                      alt=""
+                      layout="intrinsic"
+                      objectFit="cover"
+                      quality={100}
+                      placeholder="blur"
+                      blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                        shimmer(700, 475)
+                      )}`}
+                      className="cursor-pointer"
+                    />
+                  </Link>
                 </div>
-                <h4 className="font-semibold text-center my-10 uppercase text-kapitus">
-                  THE KAPITUS DIFFERENCE
+                <h4 className="font-semibold text-center my-10 uppercase text-kapitus cursor-pointer">
+                  <Link href="/success-stories" passHref>
+                    <a> SUCCESS ON EVERY CORNER</a>
+                  </Link>
                 </h4>
               </div>
               <div className="shadow-md rounded-md overflow-hidden dark:bg-red-100 dark:text-black">
                 <div className="grid place-items-center w-full text-right">
-                  <Image
-                    src="/Lets-Grow-Together.svg"
-                    width="100"
-                    height="100"
-                    alt=""
-                    layout="intrinsic"
-                    objectFit="cover"
-                    quality={100}
-                    placeholder="blur"
-                    blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                      shimmer(700, 475)
-                    )}`}
-                  />
+                  <Link href="/problems-we-solve" passHref>
+                    <Image
+                      src="/Lets-Grow-Together.svg"
+                      width="100"
+                      height="100"
+                      alt=""
+                      layout="intrinsic"
+                      objectFit="cover"
+                      quality={100}
+                      placeholder="blur"
+                      blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                        shimmer(700, 475)
+                      )}`}
+                      className="cursor-pointer"
+                    />
+                  </Link>
                 </div>
-                <h4 className="font-semibold text-center my-10 uppercase text-kapitus">
-                  LETS GROW TOGETHER
+                <h4 className="font-semibold text-center my-10 uppercase text-kapitus cursor-pointer">
+                  <Link href="/problems-we-solve" passHref>
+                    LETS GROW TOGETHER
+                  </Link>
                 </h4>
               </div>
             </section>
-          )}
-        </div>
+          </div>
+        )}
       </section>
+      {/* Three Card Section End */}
 
       <section>{inView && <Footer />}</section>
       <Head>
         <script
           defer
-          lazyOnload
+          lazyonload="true"
           src="https://cdn.trustindex.io/loader.js?09a5ee4135268498715860a5eb"
         ></script>
       </Head>
-      <CookieConsent debug={true} style={{backgroundColor: 'white', color: '#003a5d'}} buttonStyle={{color:'white',backgroundColor:'rgba( 38,122,36,1.00 )', height: '33px', width: '135px', left: 'auto', right: '10px', bottom: 'auto', top: '50%',padding: '4px'}} buttonText="OK">
-      This site uses cookies to store information on your computer. Some are essential to make our site work properly; others help us improve the user experience. We encourage you to read Kapitus’s <a style={{color: '#aa4369'}} href="https://kapitus.com/privacy-policy/">Privacy Policy</a> to learn more about how we use cookies and how we may collect and use visitor data. By continuing to use this site, you consent to the placement of these cookies
-      </CookieConsent>
     </>
   );
 }

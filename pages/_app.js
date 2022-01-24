@@ -24,10 +24,11 @@ export default function App({ Component, pageProps, statusCode, router }) {
     <>
       <ApolloProvider client={client}>
         {/* <Analytics /> */}
-      <AnimateSharedLayout>
-        <Component {...pageProps} key={router.route} />
+        <title>Kapitus</title>
+		<AnimateSharedLayout>
+			<Component {...pageProps} key={router.route} />
 		</AnimateSharedLayout>
-      </ApolloProvider>
+		</ApolloProvider>
     </>
   );
 }
