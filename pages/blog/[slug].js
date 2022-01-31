@@ -13,7 +13,7 @@ const config = {
   unstable_runtimeJS: false,
 };
 
-// const globalId = btoa(`GravityFormsForm:54`);
+//   const globalId = btoa(`GravityFormsForm:54`);
 
 const fetcher = (query) =>
   request(process.env.WORDPRESS_GRAPHQL_ENDPOINT, query);
