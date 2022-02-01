@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   FaFacebookSquare,
@@ -10,15 +10,24 @@ import {
   FaTwitterSquare,
   FaYoutube,
 } from "react-icons/fa";
-import { HamburgerArrow } from "react-animated-burgers";
+import { motion } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-const Header = () => {
+export default function Header() {
+  const variants = {
+    open: { opacity: 1, x: 0 },
+    closed: { opacity: 0, x: "-100%" },
+  };
   const [isMenuVisible, setMenuVisibility] = useState(false);
-  const { data, error } = useSWR("/api/page/header", fetcher);
+
+  const { data, error } = useSWR("/api/page/header", fetcher, {
+    revalidateOnMount: true,
+  });
+
   const [isOpen, setOpen] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const toggleButton = useCallback(
     () => setIsActive((prevState) => !prevState),
@@ -32,6 +41,19 @@ const Header = () => {
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
   const isRetina = useMediaQuery({ query: "(min-resolution: 2dppx)" });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (error) return <div>failed to load</div>;
 
@@ -99,6 +121,7 @@ const Header = () => {
                       alt="Kapitus"
                     />
                   )}
+
                   {isTabletOrMobile && (
                     <div className="flex">
                       <Image
@@ -125,14 +148,20 @@ const Header = () => {
             >
               <title>Menu</title>
               {/* <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /> */}
-
-              <HamburgerArrow
+              <i className="fas fa-bars"></i>
+              {/* <HamburgerArrow
                 buttonColor="#00395d"
                 barColor="white"
                 buttonWidth={15}
                 className="humbargerBtn"
                 {...{ isActive, toggleButton }}
-              />
+              /> */}
+              {/* <motion.nav
+                animate={isOpen ? "open" : "closed"}
+                variants={variants}
+              >
+                'Menu Content'
+              </motion.nav> */}
             </button>
           </div>
           <div
@@ -165,8 +194,82 @@ const Header = () => {
           </div>
         </nav>
       </div>
+      {/* Sticky Header Sample Code */}
+      {isDesktopOrLaptop && scrollY > 100 ? (
+        <div className="stickySmall xs:hidden md: block">
+          <div className="bg-kapitus  px-5">
+            <nav className="container flex items-center justify-between flex-wrap">
+              <div className="flex items-center flex-shrink-0 text-white mr-6">
+                <span className="tracking-tight">
+                  <Link href="/" passHref>
+                    <a>
+                      {isDesktopOrLaptop && (
+                        <Image
+                          src="/Kapitus_Logo_white.webp"
+                          width={250}
+                          height={85}
+                          layout="intrinsic"
+                          className="cursor-pointer"
+                          alt="Kapitus"
+                        />
+                      )}
+
+                      {isTabletOrMobile && (
+                        <div className="flex">
+                          <Image
+                            src="/kapitus-bug-3.png"
+                            width={40}
+                            height={20}
+                            layout="intrinsic"
+                            className="cursor-pointer"
+                            alt="Kapitus"
+                          />
+                          <button className="bg-kapitusLiteGreen xs: ml-10">
+                            <span className="kapitusblue"> Apply Now</span>
+                          </button>
+                        </div>
+                      )}
+                    </a>
+                  </Link>
+                </span>
+              </div>
+
+              <div
+                className={`${
+                  isMenuVisible ? "max-h-full" : "h-0"
+                } overflow-hidden w-full lg:h-full block flex-grow lg:flex lg:items-center lg:w-auto`}
+              >
+                <div className="text-sm lg:flex-grow">
+                  {data?.menuItems?.edges.map(({ node }, index) => (
+                    <span
+                      className="text-white text-center text-md block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+                      key={index}
+                    >
+                      <Link
+                        href={node.url}
+                        passHref
+                        prefetch={false}
+                        className="text-white"
+                      >
+                        <a>{node.label}</a>
+                      </Link>
+                    </span>
+                  ))}
+                </div>
+                <div className="bg-green px-5 py-1 mb-5 text-kapitus font-semibold">
+                  <Link href="/fast-application/" passHref>
+                    APPLY NOW
+                  </Link>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </>
   );
-};
+}
 
-export default Header;
+// export default Header;

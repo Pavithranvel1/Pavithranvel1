@@ -13,18 +13,10 @@ import "react-multi-carousel/lib/styles.css";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-// const ProductBanner = dynamic(() =>
-//   import("../../components/products/IndividualBanner")
-// );
 const InvoiceBannerNav = dynamic(() =>
   import("../../components/products/InvoiceBanner")
 );
-// const Content = dynamic(() => import("../../components/products/Content"), {
-//   loading: function ld() {
-//     return <p>Loading...</p>;
-//   },
-//   ssr: false,
-// });
+
 const GroupColumn = dynamic(() => import("../../components/products/Group"), {
   loading: function ld() {
     return <p>Loading...</p>;
@@ -125,7 +117,8 @@ export default function ProductPage() {
   if (!data) return <div>loading...</div>;
   const individualProducts = data?.individualProducts;
   const IndividualBanner = data?.individualProducts;
-  const ProductDescription = data?.individualProducts?.businessLoanDescription;
+  const ProductDescription =
+    data?.individualProducts?.individualProductDescription;
   const ProductContent = data?.individualProducts?.productsContent;
   const RequirementsData = data?.individualProducts?.requirements;
   const HowToApply = data?.individualProducts?.howToApply;
@@ -136,7 +129,7 @@ export default function ProductPage() {
   const InvoiceBanner = data?.invoiceTemplate;
   const InvoiceGroupColumnOne = data?.invoiceTemplate?.groupColumnOne;
   const InvoiceGroupColumnTwo = data?.invoiceTemplate?.groupColumnTwo;
-  console.log(data);
+  // console.log(data);
 
   if (individualProducts) {
     return (
@@ -148,23 +141,23 @@ export default function ProductPage() {
         <section className="w-full">
           <section className="productSticky ">
             <div className="container">
-              <div className="ml-5">
-                <span className="xs:p-2 text-pink md:pr-10 ">
+              <div className="ml-5 flex">
+                <div className="xs:p-5 text-pink mr-5 text-md flex-col md:pr-10">
                   <a href="#Requirement"> Requirements</a>
-                </span>
-                <span className="xs:p-2 text-pink md:pr-10">
+                </div>
+                <div className="xs:p-5 text-pink mr-5 text-md flex-col md:pr-10">
                   <a href="#HowApply"> How To Apply</a>
-                </span>
-                <span className="xs:p-2 text-pink md:pr-10">
+                </div>
+                <div className="xs:p-5 text-pink text-md flex-col md:pr-10">
                   <a href="#Who"> Who is this For?</a>
-                </span>
+                </div>
               </div>
             </div>
           </section>
           {isTabletOrMobile && (
             <section className="w-full bg-kapitus">
               <div className="container">
-                <div className="ml-5 p-5">
+                <div className="ml-5 p-5 text-center">
                   <Carousel
                     swipeable={true}
                     draggable={true}
@@ -176,19 +169,47 @@ export default function ProductPage() {
                     transitionDuration={800}
                     containerClass="carousel-container"
                     itemClass="carousel-item-padding-40-px"
-                    autoPlay={false}
+                    autoPlay={true}
                     arrows={true}
                     removeArrowOnDeviceType={["tablet", "mobile"]}
                   >
-                    <span className="xs:p-2 text-pink md:pr-10 ">
+                    <span className="xs:p-2 text-2xl text-white md:pr-10 ">
                       <Link href="/products-services/business-loans">
                         Business Loans
                       </Link>
                     </span>
-                    <span className="xs:p-2 text-pink md:pr-10 ">
-                      <Link href="/products-services/equipment-financing">
-                        Equipment Financing
+                    <span className="xs:p-2 text-2xl text-white md:pr-10 ">
+                      <Link href="/products-services/concierge-services">
+                        Concierge Services
                       </Link>
+                    </span>
+                    <span className="xs:p-2 text-2xl text-white md:pr-10 ">
+                      <Link href="/products-services/helix-healthcare-financing">
+                        Helix Healthcare Financing
+                      </Link>
+                    </span>
+                    <span className="xs:p-2 text-2xl text-white md:pr-10 ">
+                      <Link href="/products-services/invoice-factoring">
+                        Invoice Factoring
+                      </Link>
+                    </span>
+                    <span className="xs:p-2 text-2xl text-white md:pr-10 ">
+                      <Link href="/products-services/line-of-credit">
+                        Line of Credit
+                      </Link>
+                    </span>
+                    <span className="xs:p-2 text-2xl text-white md:pr-10 ">
+                      <Link href="/products-services/purchase-order-financing">
+                        Purchase Order Financing
+                      </Link>
+                    </span>
+                    <span className="xs:p-2 text-2xl text-white md:pr-10 ">
+                      <Link href="/products-services/revenue-based-financing">
+                        Revenue Based Financing
+                      </Link>
+                    </span>
+                    <span className="xs:p-2 text-2xl text-white md:pr-10 ">
+                      <Link href="/products-services/sba-loans">SBA Loans</Link>
                     </span>
                   </Carousel>
                 </div>

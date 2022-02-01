@@ -7,7 +7,6 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import ReactHtmlParser, { htmlparser2 } from "react-html-parser";
 import {
   BrowserView,
   MobileView,
@@ -127,7 +126,7 @@ export default function InfiniteScrollList() {
                   {index === 0 ? (
                     <div className="w-full">
                       <Link
-                        href={`/blog/${key.slug}`}
+                        href={`/blog/${key?.slug}`}
                         passHref
                         key={index}
                         prefetch={false}
@@ -150,20 +149,28 @@ export default function InfiniteScrollList() {
                           )}
                           <div className="xs:text-center md:text-lg text-kapitus text-left ">
                             <Link
-                              href={`/blog/${key.slug}`}
+                              href={`/blog/${key?.slug}`}
                               passHref
                               key={index}
                               prefetch={false}
                             >
-                              <a> {ReactHtmlParser(key.title)}</a>
+                              <a>
+                                <span
+                                  dangerouslySetInnerHTML={{
+                                    __html: key?.title,
+                                  }}
+                                />
+                              </a>
                             </Link>
                           </div>
-                          <div>
-                            {ReactHtmlParser(key.content.substring(0, 400))}...
-                          </div>
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: key?.content?.substring(0, 400),
+                            }}
+                          />
                           <div className="py-5">
                             <Link
-                              href={`/blog/${key.slug}`}
+                              href={`/blog/${key?.slug}`}
                               passHref
                               key={index}
                               prefetch={false}
@@ -183,7 +190,7 @@ export default function InfiniteScrollList() {
             <div className="flex flex-col md:flex-row">
               <div className="xs:w-full md:w-full ">
                 <InfiniteScroll
-                  dataLength={posts.length}
+                  dataLength={posts?.length}
                   next={fetchMorePosts}
                   hasMore={haveMorePosts}
                   loader={<p>Loading...</p>}
@@ -193,7 +200,7 @@ export default function InfiniteScrollList() {
                     {posts?.map((key, index) => (
                       <div key={key}>
                         <Link
-                          href={`/blog/${key.slug}`}
+                          href={`/blog/${key?.slug}`}
                           passHref
                           key={index}
                           prefetch={false}
@@ -215,9 +222,12 @@ export default function InfiniteScrollList() {
                                 className="cursor-pointer blogThumb"
                               />
                             )}
-                            <div className="xs:text-center mx-10 md:text-lg text-blue-900 text-left cursor-pointer blogsLink">
-                              {ReactHtmlParser(key.title)}...
-                            </div>
+                            <span
+                              className="xs:text-center mx-10 md:text-lg text-blue-900 text-left cursor-pointer blogsLink"
+                              dangerouslySetInnerHTML={{
+                                __html: key?.title,
+                              }}
+                            />
                           </div>
                         </Link>
                       </div>

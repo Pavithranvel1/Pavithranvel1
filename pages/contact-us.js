@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+
 import useSWR from "swr";
 import dynamic from "next/dynamic";
 import useInView from "react-cool-inview";
@@ -12,6 +11,10 @@ import {
 } from "react-device-detect";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useMediaQuery } from "react-responsive";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import ContactForm from "../components/forms/Contactform";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -25,6 +28,15 @@ const Map = dynamic(() => import("../components/pages/ContactUs"), {
 export default function Contact() {
   const { asPath, pathname } = useRouter();
   const { data, error } = useSWR(`/api/page/${asPath}`, fetcher);
+
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 1224px)",
+  });
+
+  const isBigScreen = useMediaQuery({ query: "(min-width: 1824px)" });
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+  const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
+  const isRetina = useMediaQuery({ query: "(min-resolution: 2dppx)" });
 
   const toBase64 = (str) =>
     typeof window === "undefined"
@@ -58,9 +70,9 @@ export default function Contact() {
   return (
     <>
       <Header />
-      <div className="xs:grid-cols-1 md:grid grid-cols-2 gap-4">
-        <div className="xs:w-full">
-          <BrowserView>
+      <div className="xs:grid-cols-1 md:grid grid-cols-2">
+        {isDesktopOrLaptop && (
+          <div className="xs:w-full">
             <Image
               src="https://kap-staging.us/wp-content/uploads/2020/05/HeroImages_secondarypage_contactus-2-1.jpg"
               width={750}
@@ -74,10 +86,10 @@ export default function Contact() {
               )}`}
               alt=""
             />
-          </BrowserView>
-        </div>
-        <div className="xs:w-full">
-          <MobileView>
+          </div>
+        )}
+        {isTabletOrMobile && (
+          <div className="xs:w-full">
             {data?.ACFcontact?.mobileImage?.sourceUrl?.length > 0 && (
               <Image
                 src={data?.ACFcontact?.mobileImage?.sourceUrl}
@@ -93,9 +105,11 @@ export default function Contact() {
                 alt=""
               />
             )}
-          </MobileView>
+          </div>
+        )}
+        <div className="xs:w-full bg-kapitus p-10">
+          <ContactForm />
         </div>
-        <div className="xs:w-full md:w-1/2">&nbsp;</div>
       </div>
 
       <section ref={observe}>{inView && <Map />}</section>

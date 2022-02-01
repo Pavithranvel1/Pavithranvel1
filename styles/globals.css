@@ -3,9 +3,6 @@ body {
   padding: 0;
   margin: 0;
 }
-html {
-  scroll-behavior: smooth;
-}
 .inactive {
   display: none;
 }
@@ -15,6 +12,12 @@ html {
 .active-scroll-spy {
   background-color: yellowgreen;
   border-radius: 15px;
+}
+.carouselContent p {
+  color: #fff !important;
+}
+.mapboxgl-control-container {
+  display: none;
 }
 .blogImgSize {
   width: 300px;
@@ -37,6 +40,27 @@ html {
   font-size: 20px;
   z-index: 999;
   text-align: center;
+}
+.stickySmall {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #00395d;
+  color: #fff;
+  padding: 9px;
+  font-size: 20px;
+  z-index: 999;
+  text-align: center;
+}
+.stickyHeader {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #00395d;
+  color: #fff;
+  padding: 5px 0px;
+  font-size: 20px;
+  z-index: 999;
 }
 /* .blogFooterSticky {
   position: -webkit-sticky;
@@ -71,6 +95,20 @@ div#Requirement {
   font-size: 15px;
   line-height: 25px;
 }
+.blogsLink:hover {
+  color: #007239;
+  text-decoration: underline;
+}
+.blogThumb:hover {
+  opacity: 0.5;
+}
+.productFrm {
+  background: #fff !important;
+}
+.productFrmButton {
+  width: 100% !important;
+  min-width: 100% !important;
+}
 .formBtn button {
   padding: 0px 20px;
   background: #00395d;
@@ -78,13 +116,16 @@ div#Requirement {
   margin-top: 20px;
   font-size: 15px;
 }
+.humbargerBtn {
+  margin-top: 0px !important;
+}
 .productSticky {
   position: -webkit-sticky;
   position: sticky;
-  top: 0;
+  top: 130px;
   background-color: #fff;
   color: #fff;
-  padding: 20px;
+  padding: 20px 0px;
   font-size: 15px;
   z-index: 999;
   text-align: left;
@@ -111,10 +152,25 @@ i.fa.fa-search {
   color: #fff;
 }
 button {
-  padding: 15px 30px;
+  padding: 10px 30px;
   background: #00395d;
   color: #fff;
   margin-top: 20px;
+  font-size: 15px !important;
+}
+p button {
+  padding: 10px 25px;
+  background: #00395d;
+  color: #fff;
+  margin-top: 20px;
+  font-size: 15px;
+}
+.bannerOpacity {
+  opacity: 0.1;
+  background-color: #01395d;
+}
+.form-border {
+  border: solid 1px #ccc;
 }
 a {
   color: inherit;
@@ -125,16 +181,27 @@ a {
   content: "■";
   color: rgb(121 189 101);
   padding-right: 15px;
+  font-size: 11px;
+  width: 10px !important;
+  height: 10px !important;
+}
+ul {
+  margin-top: 15px;
+  margin-left: 25px;
 }
 ul li {
   color: #66899e;
-  line-height: 28.5px;
+  line-height: 35px;
   font-weight: 400;
   font-size: 18px;
+  list-style: disc;
 }
 
 * {
   box-sizing: border-box;
+}
+hr {
+  border-color: #72b664;
 }
 span {
   font-size: 16px;
@@ -145,6 +212,16 @@ span {
 h3 {
   font-size: 30px;
   font-weight: bold;
+  color: #00395d;
+  float: left;
+  margin: 15px 0px;
+  clear: both;
+  width: 100%;
+  /* padding: 20px 0px; */
+}
+h5 {
+  font-size: 16px;
+  font-weight: semi-bold;
   color: #00395d;
   margin: 15px 0px;
 }
@@ -168,9 +245,26 @@ strong {
   line-height: 29.7px;
   color: #00395d;
 }
+.avia_textblock strong {
+  font-size: 18px;
+  line-height: 29.7px;
+  color: #00395d;
+}
 section.slide-entry {
   float: left;
   width: 25%;
+}
+.avia_textblock ul li {
+  list-style: none;
+}
+.rightPartner strong {
+  color: #a94068;
+  font-weight: 500;
+}
+.rightPartner h3 {
+  color: #00395d;
+  font-size: 30px;
+  font-weight: 400;
 }
 #steps section {
   float: left;
@@ -196,64 +290,6 @@ h4 {
   font-size: 29px;
   line-height: 45px;
 }
-
-/* individual product page */
-
-.content-tab {
-  grid-area: content;
-}
-.underline1 {
-  border-bottom: 1px solid #3f51b5;
-}
-.react-modal-sheet-container {
-  top:0;
-  /*position: relative!important;
-  border-top-right-radius: 0!important;
-  border-top-left-radius: 0!important;
-  background-color: #003a5d!important;
-  height: 812px!important;*/
-}
-.htitle li {
-    color: rgb(121 189 101);
-    margin-left: 7px;
-    margin-right: 7px;
-    color: rgb(169, 64, 104);
-    /*line-height: 30px;*/
-    font-size: 0.775rem;
-    font-weight: 500;
-    text-transform: uppercase;
-}
-/* individual product page */
-
-/*
-validation message style starts
-*/
-
-@media only screen and (max-width: 635px) {
-  .success {
-    position: absolute;
-    top: 9px;
-    right: -51px;
-    width: 70px;
-    height: 31px;
-    background: url('/images/check.png') center center no-repeat;
-    display: inline-block;
-    text-indent: -9999px;
-  }
-  .error {
-    position: absolute;
-    top: 9px;
-    right: -51px;
-    width: 70px;
-    height: 31px;
-    background: url('/images/cross.png') center center no-repeat;
-    display: inline-block;
-    text-indent: -9999px;
-  }
-}
-/*
-validation message style ends
-*/
 
 /* Accordion for get started form starts */
 .accordion__section {
@@ -321,14 +357,12 @@ validation message style ends
 /* Signature Refresh Ends */
 /* Individual product page Starts */
 .MuiPaper-elevation {
-  background-color: #fff!important;
+  background-color: #fff !important;
 }
 .css-11yukd5-MuiTabs-indicator {
-  background-color: #00395d!important;
+  background-color: #00395d !important;
 }
 .nav-tab {
-  color: #aa446b!important;
+  color: #aa446b !important;
   font-weight: 700;
 }
-
-/* Individual product page Ends */

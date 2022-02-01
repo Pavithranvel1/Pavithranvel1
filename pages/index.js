@@ -1,9 +1,7 @@
 import Head from "next/head";
-import React, { useEffect } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import Script from "next/script";
-import ReactHtmlParser, { htmlparser2 } from "react-html-parser";
 import {
   bgWrap,
   bgText,
@@ -17,7 +15,7 @@ import Link from "next/link";
 
 import Header from "../components/Header";
 import Banner from "../components/Banner";
-let localdata = ['gfproduct', 'gffund', 'gfindustry', 'gfmonth', 'gfyear', 'gfcheckbox', 'gfrevenue', 'gfrepayment', 'gfbusiness', 'gfloan', 'gflender', 'gfcreditscore', 'gfpersonalinfo']
+
 const Footer = dynamic(() => import("../components/Footer"), {
   loading: function ld() {
     return <p>Loading...</p>;
@@ -34,6 +32,21 @@ export default function Home() {
 
   let { asPath, pathname } = useRouter();
   const router = useRouter();
+  let localdata = [
+    "gfproduct",
+    "gffund",
+    "gfindustry",
+    "gfmonth",
+    "gfyear",
+    "gfcheckbox",
+    "gfrevenue",
+    "gfrepayment",
+    "gfbusiness",
+    "gfloan",
+    "gflender",
+    "gfcreditscore",
+    "gfpersonalinfo",
+  ];
 
   const toBase64 = (str) =>
     typeof window === "undefined"
@@ -61,21 +74,13 @@ export default function Home() {
     rootMargin: "50px",
   });
 
-  useEffect(() => {
-    if(!localStorage.getItem('reload')){
-      localdata.map((item, i) => localStorage.removeItem(item))
-      localStorage.removeItem('formstep')
-    }
-    localStorage.removeItem('reload')
-  }, [])
-
   const openForm = (event) => {
-    setTimeout(function(){
-    //setOpen(true)
-    //router.push(`${router.asPath}#get-started`)
-    router.push(`/get-started/${localStorage.getItem('formstep') || 1}`)
-    }, 700)
-  }
+    setTimeout(function () {
+      //setOpen(true)
+      //router.push(`${router.asPath}#get-started`)
+      router.push(`/get-started/1`);
+    }, 700);
+  };
 
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
@@ -140,18 +145,23 @@ export default function Home() {
                 <div className="xs:w-full text-3xl md:text-5xl">
                   {data?.page?.ThreeColumnStaticPage?.banner?.staticBannerTitle}
                 </div>
-                <div className="text-sm md:text-xl lg:text-2xl my-10">
-                  {ReactHtmlParser(
-                    data?.page?.ThreeColumnStaticPage?.banner
-                      ?.staticBannerDescription
-                  )}
-                </div>
-                <div className="xs:text-xs sm:text-lg mt-5 md:text-2xl text-kapitus" onClick={openForm}>
-                  {ReactHtmlParser(
-                    data?.page?.ThreeColumnStaticPage?.banner
-                      ?.staticBannerButton
-                  )}
-                </div>
+                <div
+                  className="text-sm md:text-xl lg:text-2xl my-10"
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      data?.page?.ThreeColumnStaticPage?.banner
+                        ?.staticBannerDescription,
+                  }}
+                />
+                <div
+                  className="xs:text-xs sm:text-lg mt-5 md:text-2xl text-kapitus"
+                  onClick={openForm}
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      data?.page?.ThreeColumnStaticPage?.banner
+                        ?.staticBannerButton,
+                  }}
+                />
               </div>
 
               <div className="xs:hidden sm:hidden md:block "></div>

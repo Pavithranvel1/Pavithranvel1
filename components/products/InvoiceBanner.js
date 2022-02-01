@@ -2,7 +2,6 @@ import Head from "next/head";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import ReactHtmlParser, { htmlparser2 } from "react-html-parser";
 import useSWR from "swr";
 import { request } from "graphql-request";
 import { useRouter } from "next/router";
@@ -18,7 +17,7 @@ import {
   isBrowser,
   isMobile,
 } from "react-device-detect";
-import ApplyNow from "../forms/CommonShortForm";
+import ApplyNow from "../../components/forms/CommonShortForm";
 
 export default function IndividualBanner({ data }) {
   const MobileBannerImage = data?.invoiceMobileBanner?.sourceUrl;
@@ -94,20 +93,30 @@ export default function IndividualBanner({ data }) {
                   <div className="xs:w-full text-2xl lg:text-5xl">
                     {BannerTitle}
                   </div>
-                  <div className="xs:text-lg mt-10 mb-10 lg:text-2xl text-green-900">
-                    {ReactHtmlParser(BannerDescription)}
-                  </div>
+                  <div
+                    className="xs:text-lg mt-10 mb-10 lg:text-2xl text-green-900"
+                    dangerouslySetInnerHTML={{
+                      __html: BannerDescription,
+                    }}
+                  />
 
                   <div className="xs:text-sm mt-5 mb-5 md:text-xl text-kapitus">
                     {BannerList?.map((value, key) => (
                       <div key={key}>
                         <div className="text-lg my-2">{value?.listTitle}</div>
-                        <div className="text-xs leading-8">
-                          {ReactHtmlParser(value?.bannerList)}
-                        </div>
+                        <div
+                          className="text-xs leading-8"
+                          dangerouslySetInnerHTML={{
+                            __html: value?.bannerList,
+                          }}
+                        />
                       </div>
                     ))}
-                    {ReactHtmlParser(data?.bannerButton)}
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: data?.bannerButton,
+                      }}
+                    />
                   </div>
                 </div>
 

@@ -399,7 +399,3 @@ export const connect = [
   "Add me to your Do Not Call List",
 ];
 /* Conatct us orm Ends */
-
-/*News letter form starts */
-export const newsletterForm = [{name: 'email_address', id: 1}]
-/*News letter form ends */

@@ -4,7 +4,6 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useState } from "react";
-import ReactHtmlParser from "react-html-parser";
 
 export default function CarouselComponent({ data }) {
   const responsive = {
@@ -54,10 +53,13 @@ export default function CarouselComponent({ data }) {
               objectFit="cover"
             />
           </div>
-          <div className="xs:w-full absolute inset-y-0 right-5 md:top-1/4 w-1/2">
-            <div className="p-4 text-white carouselContent">
-              {ReactHtmlParser(value?.carouselContent)}
-            </div>
+          <div className="xs: static w-full md:absolute inset-y-0 right-5 top-1/4 w-1/2">
+            <div
+              className="xs:w-full text-center md:p-4 text-white carouselContent"
+              dangerouslySetInnerHTML={{
+                __html: value?.carouselContent,
+              }}
+            />
           </div>
         </div>
       ))}

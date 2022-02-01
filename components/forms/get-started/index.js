@@ -9,4 +9,15 @@ import Mybusiness from "./Mybusiness";
 import Loan from "./Loan";
 import Creditscore from "./Creditscore";
 
-export { Needmoney, ConfirmPurchase, FinancingNeed, Industry, Startbusiness, Annualrevenue, Repay, Mybusiness, Loan, Creditscore };
+export {
+  Needmoney,
+  ConfirmPurchase,
+  FinancingNeed,
+  Industry,
+  Startbusiness,
+  Annualrevenue,
+  Repay,
+  Mybusiness,
+  Loan,
+  Creditscore,
+};
