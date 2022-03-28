@@ -1,0 +1,154 @@
+// CSS for the Header component in components/Header.tsx.
+
+@import "./variables";
+.menu li:nth-child(5) {
+  display: none;
+}
+.site-title {
+  margin-bottom: 0;
+}
+
+.site-title a {
+  color: $color-black;
+  font-family: $font-family;
+  font-weight: $font-weight-bold;
+  font-size: 1.2em;
+  text-decoration: none;
+}
+.mobileBtn {
+  position: absolute;
+  top: 30px;
+  background: #73b564 !important;
+  left: 40%;
+  padding: 8px 20px;
+}
+.mobileBtn a {
+  font-size: 15px;
+}
+
+.title-wrap {
+  padding: 20px 0 0;
+  //	background-image: url('/public/images/_Kapitus_Logo_white.webp');
+}
+.bghead {
+  background-color: $color-primary;
+  border-top: 1px solid $color-white;
+  border-bottom: 1px solid $color-white;
+}
+@media screen and (min-width: $breakpoint-small) {
+  .title-wrap {
+    padding: 20px 0;
+  }
+}
+
+.title-wrap .description {
+  color: $color-mid-gray;
+  font-family: $font-family;
+  font-size: 0.8em;
+  margin-top: 0.1em;
+}
+
+.wrap {
+  padding: 0 15px;
+}
+.logoContainer {
+  position: relative;
+  height: 70px;
+}
+.logoIcon {
+  height: 75px !important;
+  background-repeat: no-repeat;
+  width: 280px !important;
+}
+@media screen and (min-width: $breakpoint-small) {
+  .wrap {
+    align-items: center;
+    display: flex;
+    flex-wrap: inherit;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: $content-width-extended;
+  }
+}
+
+@media screen and (max-width: $breakpoint-small) {
+  .menu {
+    display: none;
+  }
+
+  .logoContainer {
+    position: relative;
+    height: 70px;
+    top: -14px;
+  }
+  .logoIcon {
+    position: absolute;
+    clip: rect(0, 50px, 200px, 0);
+    height: 75px;
+    background-repeat: no-repeat;
+    width: 50px;
+    left: 10px;
+    top: 22px;
+  }
+  .desktopLogo {
+    display: none;
+  }
+}
+
+@media screen and (min-width: $content-width-extended) {
+  .wrap {
+    padding: 0;
+  }
+}
+
+.menu ul {
+  padding-left: 0;
+}
+
+.menu li {
+  display: inline-block;
+  list-style-type: none;
+  padding: 0 1em;
+}
+
+.menu li:first-of-type {
+  padding-left: 0;
+}
+
+@media screen and (min-width: $breakpoint-small) {
+  .menu li:first-of-type {
+    padding-left: 1em;
+  }
+}
+
+.menu a {
+  color: $color-white;
+  font-family: $font-family;
+  font-weight: $font-weight-bold;
+  text-decoration: none;
+}
+
+.menu a:focus,
+.menu a:hover {
+  color: $color-mid-blue;
+  text-decoration: underline;
+}
+
+.menu a:active {
+  color: $color-white;
+  text-decoration: underline;
+}
+
+.menu a:global(.button) {
+  background-color: $color-light-green;
+  display: inline-block;
+  color: $color-white;
+  padding: 6px 16px;
+  border-radius: 4px;
+}
+
+.menu a:global(.button):focus,
+.menu a:global(.button):hover {
+  background-color: lighten($color-primary, 10);
+  color: $color-white;
+}

@@ -1,0 +1,99 @@
+// CSS for the index.tsx template.
+
+@import "./variables";
+ .home {display: none;}
+//Typewriter
+.title {
+	animation-name: moveRight;
+	animation-duration: 0.7s;
+}
+.titleTwo {
+	animation-name: moveRight;
+	animation-duration: 0.7s;
+}
+.titleThree {
+	animation-name: moveRight;
+	animation-duration: 0.7s;
+	color: #fbff00;
+	margin-bottom: 10px;
+}
+
+
+.explore {
+	margin: 5em 0 5em;
+}
+
+#post_list {
+	padding: 5em 0 6em;
+	background-color: $color-light-gray;
+}
+
+#home_hero h1 {
+//max-width: 40%; // Reduced from 80% on the front-page only to wrap the headline.
+	max-width: 100%; // Reduced from 80% on the front-page only to wrap the headline.
+	margin-bottom: 0;
+	color:  $color-white;
+}
+
+@media screen and (max-width: $breakpoint-small) {
+
+	.text {
+		font-size: 1.5em;
+	   font-weight: 500;
+	   color: $color-white;
+	   margin-bottom: 20px;
+    }
+}
+
+ 
+@media screen and (min-width: $breakpoint-medium) { 
+	#home_hero h1 {
+//		max-width: 40%; // Reduced from 80% on the front-page only to wrap the headline.
+		max-width: 100%; // Reduced from 80% on the front-page only to wrap the headline.
+		margin-bottom: 0;
+		font-size: 4em;
+	}
+
+	.features {
+		column-gap: 20px;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+
+		strong {
+			font-weight: bold;
+		}
+	}
+	.text {
+		font-size: 4em;
+	   font-weight: 500;
+	   color: $color-white;
+	   margin-bottom: 20px;
+   }
+	#post_list :global(.posts) {
+		display: grid;
+		column-gap: 10px;
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+}
+#home_hero::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: transparent;
+	opacity: 0;
+	z-index: 1;	
+}
+#home_hero h2 {
+	display: none;
+}
+
+// ul added on hero for products page benefits and requirements
+.dnone {
+	height: 0;
+    padding: 0;
+    margin: 0;
+	display: none;
+}

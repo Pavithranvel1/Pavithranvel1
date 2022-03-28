@@ -1,0 +1,31 @@
+@import "./variables";
+
+
+.buttonCenter {
+    display: block;
+    text-align: center;
+    clear: both;
+}
+
+.CardNav {
+    padding: 123px;
+}
+
+.horizontal {
+    height: 50px;
+    clear: both;
+    display: block;
+    width: 100%;
+    line-height: 25px;
+    position: relative;
+}
+
+.buttonLink {
+    padding: 7px 31px 7px;
+    font-size: 16px;
+    min-width: 210px;
+    border: 1px solid rgb(255 255 255);
+    color: #fff;
+    border-color: #00173b;
+    background-color: $color-primary;
+}

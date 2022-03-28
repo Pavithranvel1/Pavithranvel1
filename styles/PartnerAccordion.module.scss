@@ -1,0 +1,137 @@
+
+@import "./variables";
+
+.wrap {
+	margin: 0 auto;
+	//max-width: $content-width;
+	max-width: $content-width-extended;
+	/*overflow: auto;*/
+	padding: 0 20px;
+	position: relative;
+	z-index: 1;
+	margin-top: 30px;
+}
+
+.accordionMain {
+	cursor: pointer;
+    display: block;
+    margin: 0;
+    padding: 9px 3px 9px 35px;
+    position: relative;
+    top: 1px;
+    border-style: solid;
+    border-width: 1px;
+    line-height: 1.65em;
+}
+
+.singleToggle {
+  font-size: 17px;
+  top: 0;
+  background-color: #fff;
+  color: $color-mid-gray;
+  cursor: pointer;
+  display: block;
+  margin: 0;
+  position: relative;
+  border-style: solid;
+  border-width: 1px;
+  line-height: 1.65em;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
+.accordionMain {
+	cursor: pointer;
+    display: block;
+    margin: 0;
+    padding: 9px 3px 9px 35px;
+    position: relative;
+    top: 1px;
+    border-style: solid;
+    border-width: 1px;
+    line-height: 1.65em;
+}
+
+.button {
+  padding: 18px 0 18px 0;
+}
+
+.contentToggle{
+  margin-bottom: 0;
+  font-size: 15px;
+}
+
+.toggleIcon {
+    /*width: 15px;
+    height: 15px;
+    left: -27px;
+    right: 20px;
+    border-width: 1px;
+    opacity: .4;
+    transition: all .2s ease-in;
+    border-color: #e7ebef;
+    position: absolute;
+    border-style: solid;
+	margin-top: 10px;*/
+
+	position: absolute;
+    width: 15px;
+    height: 15px;
+    border-style: solid;
+    border-width: 1px;
+	margin-top: 8px;
+    left: -27px;
+}
+
+.icon {
+  border-width: 1px;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  position: absolute;
+}
+
+.vertIcon {
+    border-left-style: solid;
+    border-left-width: 3px;
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    height: 11px;
+}
+
+.horIcon {
+	border-top-style: solid;
+    border-top-width: 3px;
+    position: absolute;
+    top: 5px;
+    left: 1px;
+    width: 11px;
+}
+.active {
+  background-color: #a94068;
+  opacity: 1;
+}
+
+.vactive {
+  border: none;
+}
+
+/* Remove extra left and right margins, due to padding */
+.CardNav {
+	margin: 0 -5px;
+	margin-top:20px;
+}
+
+/* Clear floats after the columns */
+.CardNav:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+	float: left;
+	width: 50%;
+	padding: 0 10px;
+  }

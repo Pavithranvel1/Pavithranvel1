@@ -1,0 +1,57 @@
+// CSS for the Footer component in components/Footer.tsx.
+
+@import "./variables";
+
+.wrap {
+  margin: 0 auto;
+  max-width: $content-width-extended;
+  padding: 0 10px;
+}
+
+.features {
+  column-gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  strong {
+    font-weight: bold;
+  }
+}
+
+@media screen and (min-width: $content-width-extended) {
+  .wrap {
+    padding: 0;
+  }
+}
+@media screen and (max-width: $breakpoint-small) {
+  .features {
+    column-gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    strong {
+      font-weight: bold;
+    }
+    ul {
+      margin: 10px 20px;
+    }
+  }
+}
+
+footer.main {
+  background: $color-light-gray;
+  height: 100px;
+}
+
+footer.main p {
+  color: $color-dark-gray;
+  line-height: 100px;
+  margin: 0;
+}
+
+.footer {
+  background-color: $color-bg-opacity;
+  padding: 3em;
+
+  a {
+    color: $color-primary;
+  }
+}
